@@ -27,7 +27,7 @@ Out of goal: blog / long-form writing (Abhishek opted out), personal-brand conte
 
 - **Base aesthetic:** clean, premium, Vercel/Stripe-adjacent — big type, generous whitespace, monochrome with one accent color. Safe for recruiter skim.
 - **Technical accent layer:** a monospace "terminal block" motif used in two specific places — the homepage **Stack** section and each case study's **Stack deep-dive** section. Not site-wide.
-- **Availability pill:** `● Available · Open globally (Remote · US / EU / India)` in hero and near contact CTA.
+- **Availability signal as prose, not a badge:** woven into the hero subhead as a sentence, then repeated plainly in the Contact section. No green-dot pill — avoids the LinkedIn "Open to Work" cliché.
 - **Light + dark mode** with system-preference default, user-toggleable via `next-themes`. Both themes tested independently for contrast.
 
 Component sourcing strategy to avoid the "AI-generated landing page" look:
@@ -59,9 +59,9 @@ All case study URLs are deep-linkable so Abhishek can paste them into job applic
 ## 4. Homepage Sections (scroll order)
 
 1. **Hero** (~100vh)
-   - Availability pill
    - Name + role line: *"Senior Full-Stack Engineer — SaaS & Payment Systems"*
-   - 2-sentence positioning line
+   - Subhead that carries the availability signal in prose, e.g.:
+     *"Senior Full-Stack Engineer, based in Chandigarh. Taking new roles — remote, global."* (Final wording drafted with Abhishek.)
    - CTAs: `View work →` (scrolls to work) · `Résumé` (opens `/resume.pdf`)
    - Socials row: GitHub, LinkedIn, email
    - Subtle WebGL gradient mesh background (see §7 for constraints)
@@ -89,7 +89,7 @@ All case study URLs are deep-linkable so Abhishek can paste them into job applic
 
 7. **Contact** — simple, not a form
    - Large mailto CTA, copy-email-to-clipboard, LinkedIn link
-   - Availability pill repeated
+   - One plain line above the CTA, e.g.: *"Looking for senior/staff full-stack roles. Remote-first, timezone-flexible."*
 
 8. **Footer** — minimal
    - Built-with line, theme toggle, copyright
