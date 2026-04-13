@@ -499,20 +499,25 @@ git add -A && git commit -m "feat: add nav and footer shells"
 
 ```ts
 'use client';
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
+
+const QUERY = '(prefers-reduced-motion: reduce)';
+
+function subscribe(cb: () => void) {
+  const mql = window.matchMedia(QUERY);
+  mql.addEventListener('change', cb);
+  return () => mql.removeEventListener('change', cb);
+}
+
+const getSnapshot = () => window.matchMedia(QUERY).matches;
+const getServerSnapshot = () => false;
 
 export function useReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduced(mql.matches);
-    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
-    mql.addEventListener('change', onChange);
-    return () => mql.removeEventListener('change', onChange);
-  }, []);
-  return reduced;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 ```
+
+(`useSyncExternalStore` guarantees the first client commit reflects the real media-query value with an explicit server snapshot — avoids the `useState(false) → useEffect → setState` pattern that flashes "motion-on" briefly even for users with the preference set.)
 
 - [ ] **Step 2: Create `components/hero/hero-fallback.tsx`**
 
@@ -521,11 +526,17 @@ export function HeroFallback() {
   return (
     <div
       aria-hidden
-      className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,var(--color-accent)/15,transparent_60%)]"
+      className="absolute inset-0 -z-10"
+      style={{
+        background:
+          'radial-gradient(ellipse at top, color-mix(in oklch, var(--color-accent) 15%, transparent), transparent 60%)',
+      }}
     />
   );
 }
 ```
+
+(`var(--color-accent)/15` is invalid CSS — alpha shorthand only works inside `rgb()`/`hsl()`/`oklch()`/`color()`. `color-mix` is the cleanest portable equivalent and works in all evergreen browsers.)
 
 - [ ] **Step 3: Create `components/hero/hero-mesh.tsx`**
 
@@ -572,16 +583,24 @@ export default function HeroMesh() {
 ```tsx
 'use client';
 import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
 import { useReducedMotion } from '@/lib/hooks/use-reduced-motion';
 import { HeroFallback } from './hero-fallback';
 
-const HeroMesh = dynamic(() => import('./hero-mesh'), { ssr: false, loading: () => <HeroFallback /> });
+const HeroMesh = dynamic(() => import('./hero-mesh'), { ssr: false });
 
 export function Hero() {
   const reduced = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const cta =
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background';
+
   return (
     <section className="relative isolate flex min-h-[85dvh] items-center overflow-hidden">
-      {reduced ? <HeroFallback /> : <HeroMesh />}
+      <HeroFallback />
+      {mounted && !reduced ? <HeroMesh /> : null}
       <div className="mx-auto max-w-6xl px-6 py-24">
         <p className="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">Senior Full-Stack Engineer</p>
         <h1 className="text-balance text-5xl font-semibold tracking-tight sm:text-6xl">Abhishek Thakur</h1>
@@ -589,14 +608,16 @@ export function Hero() {
           I build multi-tenant SaaS platforms and payment systems. Based in Chandigarh. Taking new senior / staff roles — remote, global.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <a href="#work" className="inline-flex h-10 items-center rounded-md bg-foreground px-5 text-sm font-medium text-background hover:opacity-90">View work →</a>
-          <a href="/resume.pdf" className="inline-flex h-10 items-center rounded-md border border-border px-5 text-sm font-medium hover:bg-muted">Résumé</a>
+          <a href="#work" className={`inline-flex h-10 items-center rounded-md bg-foreground px-5 text-sm font-medium text-background hover:opacity-90 ${cta}`}>View work →</a>
+          <a href="/resume.pdf" className={`inline-flex h-10 items-center rounded-md border border-border px-5 text-sm font-medium hover:bg-muted ${cta}`}>Résumé</a>
         </div>
       </div>
     </section>
   );
 }
 ```
+
+(Always render `<HeroFallback />` so SSR + first paint have a visible background. Mount-guard the dynamic mesh to avoid hydration mismatch when `useReducedMotion` flips after first commit. Focus-visible rings on CTAs.)
 
 - [ ] **Step 5: Mount in `app/page.tsx`**
 
