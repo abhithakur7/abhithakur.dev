@@ -8,7 +8,7 @@
 
 **Architecture:** Single Next.js (latest — 16.x as of writing) App Router project with `output: 'export'` so the whole thing is static HTML. Content lives in MDX files under `/content`. GitHub activity is fetched **at build time** and written to `/public/github-cache.json` — no runtime API calls. WebGL mesh is lazy-loaded and gated by `prefers-reduced-motion`. Tests live in `tests/` using Vitest + React Testing Library for logic, and Playwright for a single a11y smoke test at the end.
 
-**Tech Stack:** Next.js (latest — 16.x as of writing) (App Router, static export), TypeScript strict, Tailwind CSS v4, shadcn/ui + select 21st.dev components, Framer Motion, React Three Fiber + three, MDX via `@next/mdx`, next-themes, Lucide, Inter + JetBrains Mono via `next/font`, Vitest, Playwright.
+**Tech Stack:** Next.js (latest — 16.x as of writing) (App Router, static export), TypeScript strict, Tailwind CSS v4, shadcn/ui + select 21st.dev components, Framer Motion, React Three Fiber + three, MDX via `next-mdx-remote` (RSC), next-themes, Lucide, Inter + JetBrains Mono via `next/font`, Vitest, Playwright + `@axe-core/playwright`.
 
 **Relevant spec:** `docs/superpowers/specs/2026-04-13-portfolio-design.md`.
 
@@ -101,7 +101,7 @@ abhishek-thakur/
 Run from `/Users/autumnleaf/Desktop/Projects/abhishek-thakur/`:
 
 ```bash
-pnpm create next-app@latest . --ts --tailwind --eslint --app --src-dir=false --import-alias='@/*' --use-pnpm
+pnpm create next-app@latest . --ts --tailwind --eslint --app --import-alias='@/*' --use-pnpm
 ```
 
 When prompted about overwriting existing files (the `docs/` folder), answer **No** / keep docs. If the interactive prompt refuses to write into a non-empty directory, bootstrap in a temp dir and move files: `mkdir /tmp/pfbootstrap && cd /tmp/pfbootstrap && pnpm create next-app@latest portfolio ...` then `rsync -a --exclude docs /tmp/pfbootstrap/portfolio/ /Users/autumnleaf/Desktop/Projects/abhishek-thakur/`.
@@ -111,23 +111,17 @@ When prompted about overwriting existing files (the `docs/` folder), answer **No
 Replace `next.config.mjs` with:
 
 ```js
-import createMDX from '@next/mdx';
-
-const withMDX = createMDX({
-  extension: /\.mdx?$/,
-});
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   images: { unoptimized: true },
   trailingSlash: false,
-  reactStrictMode: true,
 };
 
-export default withMDX(nextConfig);
+export default nextConfig;
 ```
+
+(We don't register `@next/mdx` because case studies are rendered via `next-mdx-remote` from MDX files under `/content/`, not mounted as `.mdx` page routes. Strict mode is Next's default since 13.)
 
 - [ ] **Step 3: Pin Node version and tighten TS**
 
@@ -170,13 +164,13 @@ git add -A && git commit -m "chore: bootstrap Next.js (latest — 16.x as of wri
 - [ ] **Step 1: Install runtime deps**
 
 ```bash
-pnpm add next-themes framer-motion three @react-three/fiber @react-three/drei lucide-react @next/mdx @mdx-js/loader @mdx-js/react gray-matter zod
+pnpm add next-themes framer-motion three @react-three/fiber @react-three/drei lucide-react next-mdx-remote gray-matter zod
 ```
 
 - [ ] **Step 2: Install dev deps**
 
 ```bash
-pnpm add -D @types/three vitest @vitest/ui @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom @playwright/test axe-playwright
+pnpm add -D @types/three vitest @vitest/ui @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom @playwright/test @axe-core/playwright
 ```
 
 - [ ] **Step 3: Configure fonts in `app/layout.tsx`**
@@ -1522,7 +1516,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 }
 ```
 
-Install: `pnpm add next-mdx-remote @tailwindcss/typography`.
+Install: `pnpm add @tailwindcss/typography`.
 
 Add typography plugin to `app/globals.css` top: `@plugin "@tailwindcss/typography";`.
 
@@ -1691,7 +1685,7 @@ Install: `pnpm add -D serve`.
 
 ```ts
 import { test, expect } from '@playwright/test';
-import { injectAxe, checkA11y } from 'axe-playwright';
+import AxeBuilder from '@axe-core/playwright';
 
 const routes = ['/', '/work/uplevelit', '/work/penbook', '/work/rocket-rebates'];
 
@@ -1699,11 +1693,8 @@ for (const path of routes) {
   test(`${path} renders without a11y violations and has an H1`, async ({ page }) => {
     await page.goto(path);
     await expect(page.locator('h1')).toHaveCount(1);
-    await injectAxe(page);
-    await checkA11y(page, undefined, {
-      detailedReport: true,
-      axeOptions: { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa'] } },
-    });
+    const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
+    expect(results.violations).toEqual([]);
   });
 }
 
