@@ -2,11 +2,13 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+**Note on versions:** This plan uses `@latest` tags so it always installs current versions. Where a specific API pattern depends on a Next.js major, the implementer should verify against the installed version's docs before coding.
+
 **Goal:** Ship a static, dark/light-themed portfolio site for Abhishek Thakur — homepage one-pager plus three case-study routes — deployed on Vercel and meeting the quality gates in the design spec (Lighthouse ≥ 95 mobile, WCAG AA, reduced-motion-safe).
 
-**Architecture:** Single Next.js 15 App Router project with `output: 'export'` so the whole thing is static HTML. Content lives in MDX files under `/content`. GitHub activity is fetched **at build time** and written to `/public/github-cache.json` — no runtime API calls. WebGL mesh is lazy-loaded and gated by `prefers-reduced-motion`. Tests live in `tests/` using Vitest + React Testing Library for logic, and Playwright for a single a11y smoke test at the end.
+**Architecture:** Single Next.js (latest — 16.x as of writing) App Router project with `output: 'export'` so the whole thing is static HTML. Content lives in MDX files under `/content`. GitHub activity is fetched **at build time** and written to `/public/github-cache.json` — no runtime API calls. WebGL mesh is lazy-loaded and gated by `prefers-reduced-motion`. Tests live in `tests/` using Vitest + React Testing Library for logic, and Playwright for a single a11y smoke test at the end.
 
-**Tech Stack:** Next.js 15 (App Router, static export), TypeScript strict, Tailwind CSS v4, shadcn/ui + select 21st.dev components, Framer Motion, React Three Fiber + three, MDX via `@next/mdx`, next-themes, Lucide, Inter + JetBrains Mono via `next/font`, Vitest, Playwright.
+**Tech Stack:** Next.js (latest — 16.x as of writing) (App Router, static export), TypeScript strict, Tailwind CSS v4, shadcn/ui + select 21st.dev components, Framer Motion, React Three Fiber + three, MDX via `@next/mdx`, next-themes, Lucide, Inter + JetBrains Mono via `next/font`, Vitest, Playwright.
 
 **Relevant spec:** `docs/superpowers/specs/2026-04-13-portfolio-design.md`.
 
@@ -99,10 +101,10 @@ abhishek-thakur/
 Run from `/Users/autumnleaf/Desktop/Projects/abhishek-thakur/`:
 
 ```bash
-pnpm create next-app@15 . --ts --tailwind --eslint --app --src-dir=false --import-alias='@/*' --use-pnpm --no-turbopack
+pnpm create next-app@latest . --ts --tailwind --eslint --app --src-dir=false --import-alias='@/*' --use-pnpm
 ```
 
-When prompted about overwriting existing files (the `docs/` folder), answer **No** / keep docs. If the interactive prompt refuses to write into a non-empty directory, bootstrap in a temp dir and move files: `mkdir /tmp/pfbootstrap && cd /tmp/pfbootstrap && pnpm create next-app@15 portfolio ...` then `rsync -a --exclude docs /tmp/pfbootstrap/portfolio/ /Users/autumnleaf/Desktop/Projects/abhishek-thakur/`.
+When prompted about overwriting existing files (the `docs/` folder), answer **No** / keep docs. If the interactive prompt refuses to write into a non-empty directory, bootstrap in a temp dir and move files: `mkdir /tmp/pfbootstrap && cd /tmp/pfbootstrap && pnpm create next-app@latest portfolio ...` then `rsync -a --exclude docs /tmp/pfbootstrap/portfolio/ /Users/autumnleaf/Desktop/Projects/abhishek-thakur/`.
 
 - [ ] **Step 2: Enable static export in `next.config.mjs`**
 
@@ -155,7 +157,7 @@ Expected: build succeeds, output in `/out`.
 - [ ] **Step 6: Commit**
 
 ```bash
-git add -A && git commit -m "chore: bootstrap Next.js 15 + TS + Tailwind + static export"
+git add -A && git commit -m "chore: bootstrap Next.js (latest — 16.x as of writing) + TS + Tailwind + static export"
 ```
 
 ---
