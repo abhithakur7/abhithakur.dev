@@ -10,7 +10,7 @@
 
 **Relevant spec:** `docs/superpowers/specs/2026-04-13-portfolio-design.md`.
 
-**Testing philosophy for this plan:** TDD for logic (GitHub fetcher, MDX loader, copy-to-clipboard, prev/next computation, theme toggle). For pure presentational components, no unit tests — instead, each task ends with an explicit `npm run dev` browser verification step and a Playwright smoke test covers the whole app at the end.
+**Testing philosophy for this plan:** TDD for logic (GitHub fetcher, MDX loader, copy-to-clipboard, prev/next computation, theme toggle). For pure presentational components, no unit tests — instead, each task ends with an explicit `pnpm dev` browser verification step and a Playwright smoke test covers the whole app at the end.
 
 **Content note:** This plan ships the site with **draft placeholder copy** in the MDX files (clearly marked `DRAFT — replace with real content`). A separate editorial pass — 15-minute call per project with Abhishek — replaces the placeholder copy before public launch. The plan is complete when the scaffolding, components, theming, and routing are all production-ready and the site deploys cleanly with draft content.
 
@@ -99,10 +99,10 @@ abhishek-thakur/
 Run from `/Users/autumnleaf/Desktop/Projects/abhishek-thakur/`:
 
 ```bash
-npx create-next-app@15 . --ts --tailwind --eslint --app --src-dir=false --import-alias='@/*' --use-npm --no-turbopack
+pnpm create next-app@15 . --ts --tailwind --eslint --app --src-dir=false --import-alias='@/*' --use-pnpm --no-turbopack
 ```
 
-When prompted about overwriting existing files (the `docs/` folder), answer **No** / keep docs. If the interactive prompt refuses to write into a non-empty directory, bootstrap in a temp dir and move files: `mkdir /tmp/pfbootstrap && cd /tmp/pfbootstrap && npx create-next-app@15 portfolio ...` then `rsync -a --exclude docs /tmp/pfbootstrap/portfolio/ /Users/autumnleaf/Desktop/Projects/abhishek-thakur/`.
+When prompted about overwriting existing files (the `docs/` folder), answer **No** / keep docs. If the interactive prompt refuses to write into a non-empty directory, bootstrap in a temp dir and move files: `mkdir /tmp/pfbootstrap && cd /tmp/pfbootstrap && pnpm create next-app@15 portfolio ...` then `rsync -a --exclude docs /tmp/pfbootstrap/portfolio/ /Users/autumnleaf/Desktop/Projects/abhishek-thakur/`.
 
 - [ ] **Step 2: Enable static export in `next.config.mjs`**
 
@@ -147,7 +147,7 @@ Append to `.gitignore`:
 - [ ] **Step 5: Verify build works**
 
 ```bash
-npm run build
+pnpm build
 ```
 
 Expected: build succeeds, output in `/out`.
@@ -168,13 +168,13 @@ git add -A && git commit -m "chore: bootstrap Next.js 15 + TS + Tailwind + stati
 - [ ] **Step 1: Install runtime deps**
 
 ```bash
-npm i next-themes framer-motion three @react-three/fiber @react-three/drei lucide-react @next/mdx @mdx-js/loader @mdx-js/react gray-matter zod
+pnpm add next-themes framer-motion three @react-three/fiber @react-three/drei lucide-react @next/mdx @mdx-js/loader @mdx-js/react gray-matter zod
 ```
 
 - [ ] **Step 2: Install dev deps**
 
 ```bash
-npm i -D @types/three vitest @vitest/ui @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom @playwright/test axe-playwright
+pnpm add -D @types/three vitest @vitest/ui @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom @playwright/test axe-playwright
 ```
 
 - [ ] **Step 3: Configure fonts in `app/layout.tsx`**
@@ -284,7 +284,7 @@ export default defineConfig({
 });
 ```
 
-Install plugin: `npm i -D @vitejs/plugin-react`.
+Install plugin: `pnpm add -D @vitejs/plugin-react`.
 
 Create `tests/setup.ts`:
 
@@ -292,7 +292,7 @@ Create `tests/setup.ts`:
 import '@testing-library/jest-dom/vitest';
 ```
 
-Add npm scripts to `package.json`:
+Add scripts to `package.json`:
 
 ```json
 "test": "vitest run",
@@ -337,7 +337,7 @@ describe('ThemeToggle', () => {
 - [ ] **Step 3: Run test (expect fail)**
 
 ```bash
-npx vitest run tests/components/theme-toggle.test.tsx
+pnpm exec vitest run tests/components/theme-toggle.test.tsx
 ```
 
 Expected: FAIL — modules don't exist.
@@ -384,7 +384,7 @@ export function ThemeToggle() {
 - [ ] **Step 6: Run test (expect pass)**
 
 ```bash
-npx vitest run tests/components/theme-toggle.test.tsx
+pnpm exec vitest run tests/components/theme-toggle.test.tsx
 ```
 
 Expected: PASS.
@@ -474,7 +474,7 @@ export default function HomePage() {
 - [ ] **Step 5: Browser verification**
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Open `http://localhost:3000`. Verify:
@@ -617,7 +617,7 @@ export default function HomePage() {
 
 - [ ] **Step 6: Browser verification**
 
-Run `npm run dev`. Verify:
+Run `pnpm dev`. Verify:
 - Hero renders with name, subhead, CTAs
 - WebGL mesh rotates subtly in the background
 - Enable "Reduce Motion" in OS prefs → reload → mesh replaced by static gradient
@@ -774,7 +774,7 @@ describe('content loader', () => {
 - [ ] **Step 4: Run test (expect fail)**
 
 ```bash
-npx vitest run tests/lib/content.test.ts
+pnpm exec vitest run tests/lib/content.test.ts
 ```
 
 Expected: FAIL — module not found.
@@ -817,7 +817,7 @@ export async function getCapabilities(): Promise<CapabilitiesFrontmatter> {
 - [ ] **Step 6: Run test (expect pass)**
 
 ```bash
-npx vitest run tests/lib/content.test.ts
+pnpm exec vitest run tests/lib/content.test.ts
 ```
 
 Expected: PASS — all 4 assertions green.
@@ -898,7 +898,7 @@ export default function HomePage() {
 
 - [ ] **Step 3: Browser verification**
 
-Run `npm run dev`. Scroll past hero. Verify:
+Run `pnpm dev`. Scroll past hero. Verify:
 - 3 cards render (Uplevelit spans 2 columns on ≥ lg)
 - Hovering a card raises the background + arrow animates
 - Clicking a card navigates to `/work/<slug>` (will 404 until Task 12 — that's expected for now)
@@ -958,7 +958,7 @@ Add `<WhatIDo />` after `<SelectedWork />` in `app/page.tsx`.
 
 - [ ] **Step 3: Browser verification**
 
-Run `npm run dev`. Verify 3 pillar cards with icon + title + description.
+Run `pnpm dev`. Verify 3 pillar cards with icon + title + description.
 
 - [ ] **Step 4: Commit**
 
@@ -1076,7 +1076,7 @@ import { Experience } from '@/components/sections/experience';
 
 - [ ] **Step 6: Browser verification**
 
-Run `npm run dev`. Verify:
+Run `pnpm dev`. Verify:
 - Stack section renders as faux terminal window with prompt, 7 rows
 - Experience timeline renders 3 entries with left border
 - Both look consistent in light and dark
@@ -1135,7 +1135,7 @@ describe('buildCache', () => {
 - [ ] **Step 2: Run test (expect fail)**
 
 ```bash
-npx vitest run tests/scripts/fetch-github.test.mjs
+pnpm exec vitest run tests/scripts/fetch-github.test.mjs
 ```
 
 Expected: FAIL — module not found.
@@ -1188,7 +1188,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 - [ ] **Step 4: Run test (expect pass)**
 
 ```bash
-npx vitest run tests/scripts/fetch-github.test.mjs
+pnpm exec vitest run tests/scripts/fetch-github.test.mjs
 ```
 
 Expected: PASS — both specs green.
@@ -1211,7 +1211,7 @@ Also add to `"scripts"`:
 - [ ] **Step 6: Run once to seed local dev**
 
 ```bash
-npm run github:cache
+pnpm github:cache
 ```
 
 Expected: creates `public/github-cache.json`.
@@ -1272,7 +1272,7 @@ Add `<GithubActivity />` after `<Experience />`.
 
 - [ ] **Step 9: Browser verification**
 
-Run `npm run dev`. Verify repo cards render from cache file.
+Run `pnpm dev`. Verify repo cards render from cache file.
 
 - [ ] **Step 10: Commit**
 
@@ -1314,7 +1314,7 @@ describe('CopyEmail', () => {
 - [ ] **Step 2: Run (expect fail)**
 
 ```bash
-npx vitest run tests/components/copy-email.test.tsx
+pnpm exec vitest run tests/components/copy-email.test.tsx
 ```
 
 Expected: FAIL.
@@ -1348,7 +1348,7 @@ export function CopyEmail({ email }: { email: string }) {
 - [ ] **Step 4: Run (expect pass)**
 
 ```bash
-npx vitest run tests/components/copy-email.test.tsx
+pnpm exec vitest run tests/components/copy-email.test.tsx
 ```
 
 Expected: PASS.
@@ -1387,7 +1387,7 @@ Add `<Contact />` after `<GithubActivity />`.
 
 - [ ] **Step 7: Browser verification**
 
-Run `npm run dev`. Verify mailto, copy-email (click shows "Copied"), LinkedIn link.
+Run `pnpm dev`. Verify mailto, copy-email (click shows "Copied"), LinkedIn link.
 
 - [ ] **Step 8: Commit**
 
@@ -1428,7 +1428,7 @@ describe('computePrevNext', () => {
 - [ ] **Step 2: Run (expect fail)**
 
 ```bash
-npx vitest run tests/lib/prev-next.test.ts
+pnpm exec vitest run tests/lib/prev-next.test.ts
 ```
 
 Expected: FAIL.
@@ -1448,7 +1448,7 @@ export function computePrevNext(slugs: string[], current: string): { prev: strin
 - [ ] **Step 4: Run (expect pass)**
 
 ```bash
-npx vitest run tests/lib/prev-next.test.ts
+pnpm exec vitest run tests/lib/prev-next.test.ts
 ```
 
 Expected: PASS.
@@ -1520,13 +1520,13 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 }
 ```
 
-Install: `npm i next-mdx-remote @tailwindcss/typography`.
+Install: `pnpm add next-mdx-remote @tailwindcss/typography`.
 
 Add typography plugin to `app/globals.css` top: `@plugin "@tailwindcss/typography";`.
 
 - [ ] **Step 6: Browser verification**
 
-Run `npm run dev`. Navigate to `/work/uplevelit`, `/work/penbook`, `/work/rocket-rebates`. Verify:
+Run `pnpm dev`. Navigate to `/work/uplevelit`, `/work/penbook`, `/work/rocket-rebates`. Verify:
 - Header with meta renders
 - Markdown body renders with typographic styles
 - Prev/Next wrap correctly at ends
@@ -1635,7 +1635,7 @@ import { PersonJsonLd } from '@/components/json-ld';
 - [ ] **Step 6: Build and verify**
 
 ```bash
-npm run build
+pnpm build
 ```
 
 Then `ls out/` — verify `sitemap.xml`, `robots.txt`, and `opengraph-image.png` (or equivalent) are present.
@@ -1657,7 +1657,7 @@ git add -A && git commit -m "feat: sitemap, robots, OG image, Person JSON-LD"
 - [ ] **Step 1: Install Playwright browsers**
 
 ```bash
-npx playwright install chromium
+pnpm exec playwright install chromium
 ```
 
 - [ ] **Step 2: Create `playwright.config.ts`**
@@ -1669,7 +1669,7 @@ export default defineConfig({
   testDir: 'tests/e2e',
   use: { baseURL: 'http://localhost:3000' },
   webServer: {
-    command: 'npm run build && npx serve out -l 3000',
+    command: 'pnpm build && pnpm exec serve out -l 3000',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
@@ -1681,7 +1681,7 @@ export default defineConfig({
 });
 ```
 
-Install: `npm i -D serve`.
+Install: `pnpm add -D serve`.
 
 - [ ] **Step 3: Create smoke test**
 
@@ -1731,7 +1731,7 @@ In `package.json`:
 - [ ] **Step 5: Run**
 
 ```bash
-npm run test:e2e
+pnpm test:e2e
 ```
 
 Expected: all specs pass on chromium + mobile project. If a11y violations surface, fix inline (most likely: missing `aria-label`, insufficient contrast, focus ring removed by a class).
@@ -1752,7 +1752,7 @@ git add -A && git commit -m "test: Playwright a11y + nav smoke across all routes
 - [ ] **Step 1: Build and serve**
 
 ```bash
-npm run build && npx serve out -l 3000
+pnpm build && pnpm exec serve out -l 3000
 ```
 
 - [ ] **Step 2: Run Lighthouse mobile for homepage**
@@ -1760,7 +1760,7 @@ npm run build && npx serve out -l 3000
 In Chrome DevTools → Lighthouse → Mobile → Navigation → Run. Or CLI:
 
 ```bash
-npx lighthouse http://localhost:3000 --preset=desktop --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=./lh.json --chrome-flags="--headless"
+pnpm dlx lighthouse http://localhost:3000 --preset=desktop --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=./lh.json --chrome-flags="--headless"
 ```
 
 Then repeat with `--form-factor=mobile --screenEmulation.mobile`. Expected: **all 4 categories ≥ 95**.
@@ -1795,8 +1795,8 @@ Ensure `public/resume.pdf` exists — Abhishek to provide. If not ready, commit 
 - [ ] **Step 2: Install Vercel CLI and link**
 
 ```bash
-npm i -g vercel
-vercel link
+pnpm add -g vercel
+vercel link  # interactive — Abhishek runs this
 ```
 
 Answer prompts to create a new project named `abhishek-thakur-portfolio`.
