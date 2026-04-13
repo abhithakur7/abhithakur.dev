@@ -403,7 +403,8 @@ git add -A && git commit -m "feat: theme provider + toggle with a11y label (TDD)
 
 ```tsx
 import Link from 'next/link';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from './icons';
 import { ThemeToggle } from './theme-toggle';
 
 export function Nav() {
@@ -412,8 +413,8 @@ export function Nav() {
       <nav aria-label="Primary" className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="font-mono text-sm font-medium">abhishek.dev</Link>
         <div className="flex items-center gap-2">
-          <a href="https://github.com/abhithakur7" aria-label="GitHub" className="rounded-md p-2 hover:bg-muted" target="_blank" rel="noreferrer"><Github className="size-4" aria-hidden /></a>
-          <a href="https://www.linkedin.com/in/abhishek-thakur-5a5260164/" aria-label="LinkedIn" className="rounded-md p-2 hover:bg-muted" target="_blank" rel="noreferrer"><Linkedin className="size-4" aria-hidden /></a>
+          <a href="https://github.com/abhithakur7" aria-label="GitHub" className="rounded-md p-2 hover:bg-muted" target="_blank" rel="noopener noreferrer"><GithubIcon className="size-4" /></a>
+          <a href="https://www.linkedin.com/in/abhishek-thakur-5a5260164/" aria-label="LinkedIn" className="rounded-md p-2 hover:bg-muted" target="_blank" rel="noopener noreferrer"><LinkedinIcon className="size-4" /></a>
           <a href="mailto:thakur.abhi270@gmail.com" aria-label="Email" className="rounded-md p-2 hover:bg-muted"><Mail className="size-4" aria-hidden /></a>
           <ThemeToggle />
         </div>
@@ -1217,7 +1218,8 @@ Expected: creates `public/github-cache.json`.
 ```tsx
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { Github, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
+import { GithubIcon } from '@/components/icons';
 
 type Cache = { username: string; repos: { name: string; description: string; url: string; stars: number; language: string }[]; fetchedAt: string };
 
@@ -1236,7 +1238,7 @@ export async function GithubActivity() {
           <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">Recent activity</h2>
         </div>
         <a href={`https://github.com/${cache.username}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm hover:bg-muted">
-          <Github className="size-4" aria-hidden /> @{cache.username}
+          <GithubIcon className="size-4" /> @{cache.username}
         </a>
       </header>
       {cache.repos.length === 0 ? (
@@ -1352,7 +1354,8 @@ Expected: PASS.
 - [ ] **Step 5: Implement `components/sections/contact.tsx`**
 
 ```tsx
-import { Linkedin, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import { LinkedinIcon } from '@/components/icons';
 import { CopyEmail } from '@/components/copy-email';
 
 const EMAIL = 'thakur.abhi270@gmail.com';
@@ -1369,7 +1372,7 @@ export function Contact() {
         </a>
         <CopyEmail email={EMAIL} />
         <a href="https://www.linkedin.com/in/abhishek-thakur-5a5260164/" target="_blank" rel="noreferrer" className="inline-flex h-10 items-center gap-2 rounded-md border border-border px-5 text-sm hover:bg-muted">
-          <Linkedin className="size-4" aria-hidden /> LinkedIn
+          <LinkedinIcon className="size-4" /> LinkedIn
         </a>
       </div>
     </section>
