@@ -131,7 +131,7 @@ export default withMDX(nextConfig);
 
 - [ ] **Step 3: Pin Node version and tighten TS**
 
-Create `.nvmrc` with contents `20`.
+Create `.nvmrc` with contents `24` (current LTS — Krypton).
 
 Edit `tsconfig.json` — set `"strict": true` and add `"noUncheckedIndexedAccess": true` under `compilerOptions`.
 
