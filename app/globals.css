@@ -23,7 +23,7 @@
   --color-accent-foreground: oklch(0.1 0 0);
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
