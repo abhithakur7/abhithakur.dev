@@ -1,0 +1,38 @@
+---
+slug: rocket-rebates
+title: Rocket Rebates
+tagline: PostgreSQL-backed rebate platform with large-scale ETL ingestion and full-text search.
+stack: [Node.js, NestJS, PostgreSQL, AWS RDS, Elasticsearch]
+liveUrl: https://rocketrebates.com
+role: Backend Engineer
+teamSize: 4 engineers
+timeframe: 2022 – 2023
+order: 3
+summary: Designed the relational schema, built ETL pipelines for third-party data, and added a full-text search layer for rebate discovery.
+---
+
+## Problem
+
+DRAFT — replace with real content. Ingest third-party rebate feeds at scale and make them discoverable via filtering and full-text search, while keeping the relational source-of-truth clean.
+
+## Architecture
+
+DRAFT — architecture diagram. ETL worker → normalised Postgres tables on RDS → indexed search layer → REST API.
+
+## Key decisions
+
+- **Normalised Postgres + denormalised search index** — why dual storage beat search-only or relational-only.
+- **Idempotent ETL with content hashing** — how we handled partial re-ingests.
+- **Query shapes designed for the index, not the table** — how API contracts were shaped by search patterns.
+
+## Stack deep-dive
+
+DRAFT.
+
+## Outcome
+
+DRAFT.
+
+## Lessons
+
+- DRAFT — what we'd do differently.

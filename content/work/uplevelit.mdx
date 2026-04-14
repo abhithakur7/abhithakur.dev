@@ -1,0 +1,38 @@
+---
+slug: uplevelit
+title: Uplevelit
+tagline: Multi-tenant SaaS platform with Stripe wallets, payouts, and per-tenant white-label deployments.
+stack: [Node.js, NestJS, React, PostgreSQL, Stripe, GCP, Docker]
+liveUrl: https://uplevelit.com
+role: Development Team Lead
+teamSize: 5 engineers
+timeframe: Feb 2024 – present
+order: 1
+summary: Led engineering on a multi-tenant SaaS with RBAC, wildcard subdomain routing, and a Stripe-backed wallet/payout system.
+---
+
+## Problem
+
+DRAFT — replace with real content. Describe the business problem: scaling a white-label SaaS with per-tenant data isolation and in-platform payments without duplicating code per tenant.
+
+## Architecture
+
+DRAFT — architecture diagram goes here (SVG component). API gateway → 4 services → shared Postgres with row-level isolation. Wildcard subdomain routing at the edge.
+
+## Key decisions
+
+- **Idempotent transaction keys over distributed locks** — why idempotency was cheaper and safer for Stripe webhooks under retry storms.
+- **Per-tenant schema isolation via Prisma middleware** — why runtime isolation beat physical database-per-tenant for our scale.
+- **Webhook replay queue with signed payloads** — why we chose this over retry-only.
+
+## Stack deep-dive
+
+DRAFT — fill with real NestJS module layout notes.
+
+## Outcome
+
+DRAFT — zero duplicate charges observed post-launch. 4-service split held up through traffic spikes.
+
+## Lessons
+
+- DRAFT — what we'd do differently.

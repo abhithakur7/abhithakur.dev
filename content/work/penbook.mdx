@@ -1,0 +1,38 @@
+---
+slug: penbook
+title: Penbook
+tagline: Realtime collaborative writing app with OpenAI-powered editing workflows.
+stack: [Node.js, NestJS, MongoDB, OpenAI, React, WebSockets]
+liveUrl: https://penbook.net
+role: Backend Engineer
+teamSize: 3 engineers
+timeframe: "2023"
+order: 2
+summary: Built the NestJS + MongoDB backend with OpenAI integration and realtime collaboration primitives.
+---
+
+## Problem
+
+DRAFT — replace with real content. The editorial problem: writers wanted an AI-assisted draft/edit loop that felt native to collaborative editing, not an external chat window.
+
+## Architecture
+
+DRAFT — architecture diagram. NestJS API + Socket.IO gateway + MongoDB document store + OpenAI streaming proxy.
+
+## Key decisions
+
+- **Streaming OpenAI responses through our own token-budgeted proxy** — why we didn't call OpenAI directly from the client.
+- **Operational-transform lite for collab** — why a simpler CRDT-less model fit the product.
+- **Optimistic UI with reconciliation on server ack** — why it felt snappier.
+
+## Stack deep-dive
+
+DRAFT.
+
+## Outcome
+
+DRAFT.
+
+## Lessons
+
+- DRAFT — what we'd do differently.
