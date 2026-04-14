@@ -25,4 +25,19 @@ describe('content loader', () => {
     const caps = await getCapabilities();
     expect(caps.pillars.length).toBe(3);
   });
+
+  it('has no duplicate slugs or order values', async () => {
+    const all = await getAllWork();
+    expect(new Set(all.map((w) => w.slug)).size).toBe(all.length);
+    expect(new Set(all.map((w) => w.order)).size).toBe(all.length);
+  });
+
+  it('frontmatter slug matches the filename', async () => {
+    // If this invariant is violated, getAllWork() throws — so reaching this
+    // assertion is itself confirmation.
+    const all = await getAllWork();
+    for (const w of all) {
+      expect(w.slug).toMatch(/^[a-z0-9-]+$/);
+    }
+  });
 });
