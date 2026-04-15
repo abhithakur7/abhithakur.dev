@@ -3,9 +3,9 @@ export const EXPERIENCE = [
     company: 'Bizdesire',
     url: 'https://bizdesire.co/',
     role: 'Development Team Lead',
-    period: 'Feb 2024 – present',
+    period: 'Feb 2024 – 2026',
     summary:
-      'Leading a 5-engineer team building a multi-tenant SaaS with Stripe wallets, payouts, and per-tenant white-label deployments on GCP.',
+      'Led a 5-engineer team on Uplevelit (Experience-as-a-Service marketplace) and shipped Penbook and Rocket Rebates solo — Firebase, NestJS, MongoDB, Stripe, Twilio Video, OpenAI.',
   },
   {
     company: 'Appcore Labs',

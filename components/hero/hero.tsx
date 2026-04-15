@@ -13,8 +13,14 @@ export function Hero() {
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-24 sm:py-32 lg:grid-cols-[1fr_auto] lg:items-end">
         <div>
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-            <span aria-hidden className="size-1.5 rounded-full bg-accent" />
-            <span>Senior Full-Stack Engineer · Chandigarh</span>
+            <span
+              aria-hidden
+              className="relative flex size-1.5"
+            >
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+              <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
+            </span>
+            <span>Available now · Senior Full-Stack Engineer · Chandigarh</span>
           </div>
           <h1 className="font-display mt-7 text-balance text-6xl font-medium leading-[0.95] tracking-tight sm:text-7xl lg:text-[8rem]">
             Abhishek
@@ -25,9 +31,9 @@ export function Hero() {
           </h1>
           <p className="mt-9 max-w-xl text-balance text-lg leading-relaxed text-muted-foreground sm:text-xl">
             I build{' '}
-            <span className="text-foreground">multi-tenant SaaS</span> and{' '}
-            <span className="text-foreground">payment systems</span>. Currently
-            leading engineering at Bizdesire — taking new{' '}
+            <span className="text-foreground">SaaS platforms</span> and{' '}
+            <span className="text-foreground">payment systems</span>. Most
+            recently led engineering at Bizdesire on Uplevelit. Open to new{' '}
             <span className="text-foreground">senior / staff</span> roles,
             remote, global.
           </p>
@@ -52,8 +58,12 @@ export function Hero() {
         <aside className="hidden border-l border-border pl-8 font-mono text-xs uppercase tracking-widest text-muted-foreground lg:block">
           <ul className="space-y-3">
             <li className="flex items-baseline justify-between gap-6">
-              <span>Currently</span>
-              <span className="text-foreground">Uplevelit @ Bizdesire</span>
+              <span>Status</span>
+              <span className="text-foreground">Available now</span>
+            </li>
+            <li className="flex items-baseline justify-between gap-6">
+              <span>Last role</span>
+              <span className="text-foreground">Lead · Bizdesire</span>
             </li>
             <li className="flex items-baseline justify-between gap-6">
               <span>Years</span>
