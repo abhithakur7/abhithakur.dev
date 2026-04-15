@@ -1,27 +1,41 @@
 ---
 slug: penbook
 title: Penbook
-tagline: Real-time collaborative writing app with OpenAI-driven content workflows.
+tagline: An AI-powered platform that brings readers and writers together — write with AI tools, read in a connected universe, share, and join book clubs.
 stack: [Node.js, NestJS, MongoDB, OpenAI, React, WebSockets]
 liveUrl: https://penbook.net
 role: Backend Engineer
 timeframe: "2023"
 order: 2
-summary: Built the NestJS + MongoDB backend, the OpenAI integration, and the real-time collaboration layer.
+summary: Built the NestJS + MongoDB backend powering AI-assisted writing, reading, content, and book-club surfaces in one creative space.
 ---
 
 ## Overview
 
-Penbook is a collaborative writing product where AI isn't a sidebar — it's woven into the drafting and editing loop. I built the backend on NestJS + MongoDB with OpenAI-driven generation and a real-time collaboration layer.
+Penbook is an **AI-powered all-in-one platform** that brings readers and writers together in one creative space. Four surfaces, one product:
+
+- **Writing** — create your own stories with AI-powered tools designed to support and inspire authors.
+- **Reading** — discover stories from the Penbook universe with features that make reading more engaging.
+- **Content** — share your thoughts about books, publish your own content, and get inspired by others.
+- **Book clubs** — connect with fellow readers, join or create clubs, and engage directly with authors.
+
+I built the backend that powers all four surfaces — NestJS over MongoDB, with OpenAI woven into the writing and content flows.
 
 ## What I built
 
-- **NestJS + MongoDB backend.** Optimised query patterns for document-heavy read paths: selective projections, compound indexes on the access patterns the editor actually uses, and aggregation pipelines for workspace summaries instead of N+1 fetches.
-- **OpenAI integration.** Powers AI-driven content creation and editing workflows inside the editor — prompt construction, request shaping, and response handling live server-side so the client never holds an API key.
-- **Real-time collaboration.** Developed the collaborative editing primitives: presence, concurrent edits, and document sync so multiple writers can work on the same piece without clobbering each other.
+- **NestJS + MongoDB backend.** A modular Nest service exposing the APIs the four surfaces need — stories, chapters, posts, clubs, and the relationships between them. Mongo's document model fits the natural shape of a manuscript: a story with nested chapters, scenes, and revisions, queryable in one round-trip instead of stitched together with joins.
+- **Optimised query patterns.** Selective projections so the editor doesn't ship an entire manuscript when it only needs the current chapter; compound indexes on the access patterns the reading and discovery flows actually use; aggregation pipelines for feed and club summaries instead of N+1 fetches in the API layer.
+- **OpenAI integration for the writing surface.** Powers AI-driven content creation and editing — prompt construction, request shaping, and response handling all live server-side so the client never sees a key. Designed so prompt iteration is a config change, not a redeploy of the front-end.
+- **Real-time collaboration primitives.** Live presence and concurrent editing for shared drafts so co-writers can work the same piece without clobbering each other's edits.
+- **Content + community APIs.** The endpoints behind shared posts, club membership, author engagement, and the discovery/feed paths that connect readers to writers.
 
 ## Key decisions
 
-- **Server-side AI mediation.** Sits between the client and the model so prompts, context, and usage are all controlled from one place — easier to iterate on prompt design and to cap spend per workspace.
-- **Mongo over SQL for the document store.** The editor's unit of work is a document with nested structure; modelling it relationally would have meant constant joins or JSON-in-a-column. Mongo fit the access pattern natively.
-- **Event-driven sync loop.** Real-time edits propagate through a gateway channel per document, not a single global pipe — keeps fanout bounded and presence cheap.
+- **Mongo over a relational store.** A book's natural unit of work is a document with nested structure (chapters, scenes, revisions). Modelling that relationally would have meant constant joins or JSON-in-a-column. Mongo fit the access pattern natively, and the query plans stayed simple.
+- **Server-side AI mediation.** The OpenAI client lives in the API, not in the browser — keys stay protected, prompts are versioned in code, and per-user usage can be capped without trusting the client.
+- **One backend across four surfaces.** Writing, reading, content, and clubs share the same data model, the same auth, and the same API conventions. Adding a new feature on any surface mostly means a new endpoint and a query, not a new service.
+- **Event-driven real-time channel per document.** Live edits propagate through a per-document gateway channel rather than a single global pipe — fanout stays bounded and presence stays cheap.
+
+## Role
+
+Backend engineer on the team — owned the API layer, the data model, the OpenAI integration, and the real-time collaboration primitives that the front-end builds against.
