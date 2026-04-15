@@ -1,4 +1,5 @@
 import { PersonJsonLd } from '@/components/json-ld';
+import { Splash } from '@/components/splash';
 import { Hero } from '@/components/hero/hero';
 import { Reveal } from '@/components/reveal';
 import { SelectedWork } from '@/components/sections/selected-work';
@@ -11,6 +12,7 @@ export default function HomePage() {
   return (
     <>
       <PersonJsonLd />
+      <Splash />
       <Hero />
       <Reveal>
         <SelectedWork />
