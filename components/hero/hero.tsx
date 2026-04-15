@@ -52,11 +52,15 @@ export function Hero() {
         <aside className="hidden border-l border-border pl-8 font-mono text-xs uppercase tracking-widest text-muted-foreground lg:block">
           <ul className="space-y-3">
             <li className="flex items-baseline justify-between gap-6">
+              <span>Currently</span>
+              <span className="text-foreground">Uplevelit @ Bizdesire</span>
+            </li>
+            <li className="flex items-baseline justify-between gap-6">
               <span>Years</span>
               <span className="text-foreground tabular-nums">04+</span>
             </li>
             <li className="flex items-baseline justify-between gap-6">
-              <span>Roles open</span>
+              <span>Open to</span>
               <span className="text-foreground">Senior · Staff</span>
             </li>
             <li className="flex items-baseline justify-between gap-6">
