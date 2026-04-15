@@ -3,7 +3,7 @@ export function PersonJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Abhishek Thakur',
-    url: 'https://abhishekthakur.dev',
+    url: 'https://me-nine-ivory.vercel.app',
     jobTitle: 'Senior Full-Stack Engineer',
     sameAs: [
       'https://github.com/abhithakur7',

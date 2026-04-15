@@ -11,7 +11,7 @@ const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', displ
 export const metadata: Metadata = {
   title: 'Abhishek Thakur — Senior Full-Stack Engineer',
   description: 'SaaS & payment systems. Node, NestJS, React, Stripe, GCP.',
-  metadataBase: new URL('https://abhishekthakur.dev'),
+  metadataBase: new URL('https://me-nine-ivory.vercel.app'),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
