@@ -3,6 +3,7 @@ import { SelectedWork } from '@/components/sections/selected-work';
 import { WhatIDo } from '@/components/sections/what-i-do';
 import { StackTerminal } from '@/components/sections/stack-terminal';
 import { Experience } from '@/components/sections/experience';
+import { GithubActivity } from '@/components/sections/github-activity';
 
 export default function HomePage() {
   return (
@@ -12,6 +13,7 @@ export default function HomePage() {
       <WhatIDo />
       <StackTerminal />
       <Experience />
+      <GithubActivity />
     </>
   );
 }
