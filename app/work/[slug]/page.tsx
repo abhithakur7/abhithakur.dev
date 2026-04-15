@@ -89,15 +89,19 @@ export default async function CaseStudyPage({
               Live
             </dt>
             <dd className="mt-2">
-              <a
-                className="inline-flex items-center gap-1 underline decoration-border underline-offset-4 hover:decoration-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                href={meta.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {new URL(meta.liveUrl).hostname}
-                <ExternalLink className="size-3" aria-hidden />
-              </a>
+              {meta.liveUrl ? (
+                <a
+                  className="inline-flex items-center gap-1 underline decoration-border underline-offset-4 hover:decoration-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  href={meta.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {new URL(meta.liveUrl).hostname}
+                  <ExternalLink className="size-3" aria-hidden />
+                </a>
+              ) : (
+                <span className="text-muted-foreground">No longer live</span>
+              )}
             </dd>
           </div>
         </dl>

@@ -5,7 +5,7 @@ export const workFrontmatter = z.object({
   title: z.string().min(1),
   tagline: z.string().min(1),
   stack: z.array(z.string().min(1)).min(1),
-  liveUrl: z.string().url(),
+  liveUrl: z.string().url().optional(),
   role: z.string().min(1),
   timeframe: z.string().min(1),
   order: z.number().int().positive(),

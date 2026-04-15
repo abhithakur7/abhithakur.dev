@@ -1,28 +1,48 @@
 ---
 slug: rocket-rebates
 title: Rocket Rebates
-tagline: PostgreSQL-backed rebate platform with large-scale ETL ingestion and full-text search.
-stack: [Node.js, NestJS, PostgreSQL, AWS RDS, ETL, Full-text search]
-liveUrl: https://rocketrebates.com
+tagline: Search local rebate programs, generate detailed reports with AI, and assemble admin-reviewed submission packages — end to end.
+stack: [Node.js, NestJS, PostgreSQL, AWS RDS, AWS S3, OpenAI, ETL, Full-text search]
 role: Backend Engineer
 timeframe: 2022 – 2023
 order: 3
-summary: Designed the relational schema, built ETL pipelines for third-party data at scale, and added full-text search for rebate discovery.
+summary: PostgreSQL-backed rebate platform with AI-generated reports, S3 document handling, and an admin-reviewed submission workflow.
 ---
 
 ## Overview
 
-Rocket Rebates aggregates rebate data from third-party feeds and exposes it as a searchable catalog. I designed the data layer and ingestion pipeline, and built the NestJS APIs the product sits on.
+Rocket Rebates was a platform for finding and applying to local rebate programs — search rebates in your area, create a project for the ones you wanted to pursue, generate a detailed report on each program with AI, and assemble an admin-reviewed submission package you could file. OpenAI sat in the middle of the workflow: identifying the documents a program required, drafting reports, and shaping the submission output.
+
+The product is no longer live. I built the backend that ran it.
+
+## How the product worked
+
+1. **Search** — anyone could search local rebate programs without an account.
+2. **Account + project** — when a user found programs they wanted to pursue, they signed up and created a *project* to track them in.
+3. **Deep search** — inside a project, search got more detailed: program-specific filters, eligibility metadata, and ranked results.
+4. **AI report** — for any program in the project, the platform generated a detailed report with OpenAI — what the program is, what it requires, what it pays out.
+5. **Submission package** — OpenAI also identified the documents the program required and helped draft the submission report itself. Generated and uploaded documents landed in S3.
+6. **Admin review** — an admin reviewed the package in the dashboard. If everything looked right, they approved it.
+7. **Submit** — once approved, the user could file the submission externally.
 
 ## What I built
 
-- **PostgreSQL schema on AWS RDS.** Designed the relational schema for large-scale rebate datasets: normalised core entities, staging tables for ingest, and compound indexes tuned to the query shapes the product actually runs.
-- **ETL pipelines.** Ingest, normalise, and process third-party feeds at scale — handling dirty inputs, field mismatches, and partial re-ingests without double-writing.
-- **REST APIs with NestJS.** Query planning and indexing strategies tuned for the filter combinations the UI exposes; pagination and sort paths designed around the indexes, not fitted around them after.
-- **Full-text search layer.** Implemented for rebate discovery and filtering so users can find relevant offers by keyword alongside structured filters.
+- **PostgreSQL schema on AWS RDS.** Designed the relational schema for the rebate catalog — programs, eligibility rules, geographies, payouts — plus the application-side tables (users, projects, project–program links, generated reports, document references, review status).
+- **ETL pipelines for third-party feeds.** Ingested rebate programs from outside data sources, normalised inconsistent fields, and kept the catalog fresh without double-writing on partial re-runs.
+- **NestJS REST APIs.** Modular service exposing the search, project, report, document, and review endpoints. Query plans tuned for the access patterns the front-end actually used — pagination and filters designed around the indexes, not bolted on after.
+- **Full-text search layer.** Powered both the public discovery flow and the deeper in-project search, with structured filters layered on top.
+- **OpenAI integration for reports + document detection.** Two distinct AI workflows: (1) generate the detailed program report from structured program data, and (2) infer the document checklist a given program required, so the submission package could be assembled with the right pieces.
+- **S3 document storage.** Generated reports and user-uploaded supporting documents stored in S3 with signed URLs for in-app viewing. Admins could review the full package without files leaving the bucket.
+- **Admin review workflow.** Status machine with explicit gates — *draft → ready for review → approved → submittable* — so users couldn't file something an admin hadn't signed off on.
 
 ## Key decisions
 
-- **Normalised source-of-truth + search index.** Kept the relational store clean and moved discovery/ranking load to the search layer; neither storage paid for the other's query patterns.
-- **Idempotent ingestion.** Content-hashing inbound records so partial re-runs of the pipeline don't duplicate rebates or silently drop updates.
-- **Indexes first, then API contracts.** Shaped query shapes around what Postgres could answer cheaply, rather than designing pretty APIs and hoping the indexes would materialise later.
+- **Hybrid search: relational + full-text.** Filters that cared about structure (geography, payout range, eligibility) ran against indexed columns; keyword discovery ran through the full-text layer. Neither storage paid for the other's query patterns.
+- **AI as a workflow step, not a chat surface.** OpenAI calls were *jobs*: take this program record, produce that report; take this program, produce that document checklist. Outputs were structured and reviewed, not free-form prose dropped into the UI.
+- **S3 with signed URLs over a self-hosted file store.** Free durability and CDN delivery; admin review reads documents directly from the bucket via short-lived signed links.
+- **Idempotent ingestion.** Content-hashing inbound rebate records so partial pipeline reruns didn't duplicate programs or silently drop updates.
+- **Hard approval gate before submission.** A submission package can't go out without admin approval — codified in the status machine, not relied on at the UI layer.
+
+## Role
+
+Backend engineer — owned the data model, the ETL, the search and project APIs, the OpenAI workflows, and the submission/review pipeline that the admin tooling worked against.
