@@ -41,6 +41,29 @@ html {
 /* ----- Case study prose decoration -----
    Done in CSS (not Tailwind prose modifiers) because v4 + typography
    plugin had specificity conflicts on the ::before pseudo. */
+
+/* Tailwind Typography's default colors don't resolve well against our
+   oklch theme — force everything to our tokens for reliable contrast. */
+.cs-prose {
+  --tw-prose-body: var(--color-foreground);
+  --tw-prose-headings: var(--color-foreground);
+  --tw-prose-lead: var(--color-muted-foreground);
+  --tw-prose-links: var(--color-foreground);
+  --tw-prose-bold: var(--color-foreground);
+  --tw-prose-counters: var(--color-muted-foreground);
+  --tw-prose-bullets: var(--color-border);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-foreground);
+  --tw-prose-quote-borders: var(--color-border);
+  --tw-prose-captions: var(--color-muted-foreground);
+  --tw-prose-code: var(--color-foreground);
+  --tw-prose-pre-code: var(--color-foreground);
+  --tw-prose-pre-bg: var(--color-muted);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
+  color: var(--color-foreground);
+}
+
 .cs-prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   color: var(--color-foreground);
   font-family: var(--font-display), Georgia, serif;
