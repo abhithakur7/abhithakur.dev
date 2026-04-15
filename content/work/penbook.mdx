@@ -1,38 +1,28 @@
 ---
 slug: penbook
 title: Penbook
-tagline: Realtime collaborative writing app with OpenAI-powered editing workflows.
+tagline: Real-time collaborative writing app with OpenAI-driven content workflows.
 stack: [Node.js, NestJS, MongoDB, OpenAI, React, WebSockets]
 liveUrl: https://penbook.net
 role: Backend Engineer
 teamSize: 3 engineers
 timeframe: "2023"
 order: 2
-summary: Built the NestJS + MongoDB backend with OpenAI integration and realtime collaboration primitives.
+summary: Built the NestJS + MongoDB backend, the OpenAI integration, and the real-time collaboration layer.
 ---
 
-## Problem
+## Overview
 
-DRAFT — replace with real content. The editorial problem: writers wanted an AI-assisted draft/edit loop that felt native to collaborative editing, not an external chat window.
+Penbook is a collaborative writing product where AI isn't a sidebar — it's woven into the drafting and editing loop. I built the backend on NestJS + MongoDB with OpenAI-driven generation and a real-time collaboration layer.
 
-## Architecture
+## What I built
 
-DRAFT — architecture diagram. NestJS API + Socket.IO gateway + MongoDB document store + OpenAI streaming proxy.
+- **NestJS + MongoDB backend.** Optimised query patterns for document-heavy read paths: selective projections, compound indexes on the access patterns the editor actually uses, and aggregation pipelines for workspace summaries instead of N+1 fetches.
+- **OpenAI integration.** Powers AI-driven content creation and editing workflows inside the editor — prompt construction, request shaping, and response handling live server-side so the client never holds an API key.
+- **Real-time collaboration.** Developed the collaborative editing primitives: presence, concurrent edits, and document sync so multiple writers can work on the same piece without clobbering each other.
 
 ## Key decisions
 
-- **Streaming OpenAI responses through our own token-budgeted proxy** — why we didn't call OpenAI directly from the client.
-- **Operational-transform lite for collab** — why a simpler CRDT-less model fit the product.
-- **Optimistic UI with reconciliation on server ack** — why it felt snappier.
-
-## Stack deep-dive
-
-DRAFT.
-
-## Outcome
-
-DRAFT.
-
-## Lessons
-
-- DRAFT — what we'd do differently.
+- **Server-side AI mediation.** Sits between the client and the model so prompts, context, and usage are all controlled from one place — easier to iterate on prompt design and to cap spend per workspace.
+- **Mongo over SQL for the document store.** The editor's unit of work is a document with nested structure; modelling it relationally would have meant constant joins or JSON-in-a-column. Mongo fit the access pattern natively.
+- **Event-driven sync loop.** Real-time edits propagate through a gateway channel per document, not a single global pipe — keeps fanout bounded and presence cheap.

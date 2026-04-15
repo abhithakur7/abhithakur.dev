@@ -24,7 +24,13 @@ export const STACK_GROUPS: { label: string; items: string[] }[] = [
   },
   {
     label: 'ai',
-    items: ['OpenAI API', 'Prompt workflows', 'Content generation'],
+    items: [
+      'Claude Code',
+      'Anthropic API',
+      'OpenAI API',
+      'Prompt workflows',
+      'AI-assisted development',
+    ],
   },
   {
     label: 'integrations',

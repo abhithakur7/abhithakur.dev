@@ -2,37 +2,28 @@
 slug: rocket-rebates
 title: Rocket Rebates
 tagline: PostgreSQL-backed rebate platform with large-scale ETL ingestion and full-text search.
-stack: [Node.js, NestJS, PostgreSQL, AWS RDS, Elasticsearch]
+stack: [Node.js, NestJS, PostgreSQL, AWS RDS, ETL, Full-text search]
 liveUrl: https://rocketrebates.com
 role: Backend Engineer
 teamSize: 4 engineers
 timeframe: 2022 – 2023
 order: 3
-summary: Designed the relational schema, built ETL pipelines for third-party data, and added a full-text search layer for rebate discovery.
+summary: Designed the relational schema, built ETL pipelines for third-party data at scale, and added full-text search for rebate discovery.
 ---
 
-## Problem
+## Overview
 
-DRAFT — replace with real content. Ingest third-party rebate feeds at scale and make them discoverable via filtering and full-text search, while keeping the relational source-of-truth clean.
+Rocket Rebates aggregates rebate data from third-party feeds and exposes it as a searchable catalog. I designed the data layer and ingestion pipeline, and built the NestJS APIs the product sits on.
 
-## Architecture
+## What I built
 
-DRAFT — architecture diagram. ETL worker → normalised Postgres tables on RDS → indexed search layer → REST API.
+- **PostgreSQL schema on AWS RDS.** Designed the relational schema for large-scale rebate datasets: normalised core entities, staging tables for ingest, and compound indexes tuned to the query shapes the product actually runs.
+- **ETL pipelines.** Ingest, normalise, and process third-party feeds at scale — handling dirty inputs, field mismatches, and partial re-ingests without double-writing.
+- **REST APIs with NestJS.** Query planning and indexing strategies tuned for the filter combinations the UI exposes; pagination and sort paths designed around the indexes, not fitted around them after.
+- **Full-text search layer.** Implemented for rebate discovery and filtering so users can find relevant offers by keyword alongside structured filters.
 
 ## Key decisions
 
-- **Normalised Postgres + denormalised search index** — why dual storage beat search-only or relational-only.
-- **Idempotent ETL with content hashing** — how we handled partial re-ingests.
-- **Query shapes designed for the index, not the table** — how API contracts were shaped by search patterns.
-
-## Stack deep-dive
-
-DRAFT.
-
-## Outcome
-
-DRAFT.
-
-## Lessons
-
-- DRAFT — what we'd do differently.
+- **Normalised source-of-truth + search index.** Kept the relational store clean and moved discovery/ranking load to the search layer; neither storage paid for the other's query patterns.
+- **Idempotent ingestion.** Content-hashing inbound records so partial re-runs of the pipeline don't duplicate rebates or silently drop updates.
+- **Indexes first, then API contracts.** Shaped query shapes around what Postgres could answer cheaply, rather than designing pretty APIs and hoping the indexes would materialise later.

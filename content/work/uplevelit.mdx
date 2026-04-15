@@ -1,8 +1,8 @@
 ---
 slug: uplevelit
 title: Uplevelit
-tagline: Multi-tenant SaaS platform with Stripe wallets, payouts, and per-tenant white-label deployments.
-stack: [Node.js, NestJS, React, PostgreSQL, Stripe, GCP, Docker]
+tagline: Multi-tenant SaaS with Stripe wallets, payouts, and per-tenant white-label deployments.
+stack: [Node.js, TypeScript, NestJS, React, PostgreSQL, Stripe, GCP, Docker]
 liveUrl: https://uplevelit.com
 role: Development Team Lead
 teamSize: 5 engineers
@@ -11,28 +11,24 @@ order: 1
 summary: Led engineering on a multi-tenant SaaS with RBAC, wildcard subdomain routing, and a Stripe-backed wallet/payout system.
 ---
 
-## Problem
+## Overview
 
-DRAFT — replace with real content. Describe the business problem: scaling a white-label SaaS with per-tenant data isolation and in-platform payments without duplicating code per tenant.
+Uplevelit is a multi-tenant SaaS platform serving white-labelled deployments per customer. I lead a team of 5 engineers across backend, frontend, and infrastructure, shipping on a Node.js / TypeScript / NestJS / React stack deployed on GCP.
 
-## Architecture
+## What I built
 
-DRAFT — architecture diagram goes here (SVG component). API gateway → 4 services → shared Postgres with row-level isolation. Wildcard subdomain routing at the edge.
+- **Multi-tenant architecture.** Designed RBAC with tenant-level data isolation, so every request resolves to a tenant context before touching data. Wildcard subdomain routing at the edge handles per-tenant white-label branding without per-tenant code branches.
+- **Microservices split.** Scoped the platform as a 4-service system behind a dedicated API gateway. Each service owns its domain (billing, tenants, content, notifications) and communicates over typed contracts.
+- **End-to-end Stripe billing.** Subscriptions, wallet top-ups, payouts, refunds, and webhook handlers. Idempotent transactions across distributed services eliminate duplicate payments under retry storms and webhook replays.
+- **Operational surface.** Containerised services with Docker, deployed via GCR on GCP. CI/CD via GitHub Actions and Bitbucket Pipelines drives production deployments, rollbacks, and monitoring hooks.
+- **Integrations.** Twilio for transactional SMS, SendGrid for email, CDN-based media delivery.
 
 ## Key decisions
 
-- **Idempotent transaction keys over distributed locks** — why idempotency was cheaper and safer for Stripe webhooks under retry storms.
-- **Per-tenant schema isolation via Prisma middleware** — why runtime isolation beat physical database-per-tenant for our scale.
-- **Webhook replay queue with signed payloads** — why we chose this over retry-only.
+- **Idempotency keys over distributed locks.** Cheaper and safer for Stripe webhooks under retry storms than coordinating locks across services.
+- **Runtime tenant isolation over database-per-tenant.** Kept operational overhead flat as tenant count grows; row-level checks enforced in the ORM layer.
+- **API gateway as the auth boundary.** Services trust the gateway's signed context — they don't re-verify user sessions. Keeps service-to-service latency low and auth logic single-sourced.
 
-## Stack deep-dive
+## Role
 
-DRAFT — fill with real NestJS module layout notes.
-
-## Outcome
-
-DRAFT — zero duplicate charges observed post-launch. 4-service split held up through traffic spikes.
-
-## Lessons
-
-- DRAFT — what we'd do differently.
+As team lead, I owned architecture decisions, code review, and delivery alongside hands-on development — particularly the billing and multi-tenant primitives.
