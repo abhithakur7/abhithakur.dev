@@ -54,7 +54,7 @@ export function PersonJsonLd() {
       addressLocality: 'Chandigarh',
       addressCountry: 'IN',
     },
-    email: 'mailto:thakur.abhi270@gmail.com',
+    email: 'mailto:hi@abhithakur.dev',
   };
   return (
     <script

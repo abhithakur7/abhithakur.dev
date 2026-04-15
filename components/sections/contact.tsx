@@ -3,7 +3,7 @@ import { LinkedinIcon } from '@/components/icons';
 import { CopyEmail } from '@/components/copy-email';
 import { SectionHeader } from '@/components/section-header';
 
-const EMAIL = 'thakur.abhi270@gmail.com';
+const EMAIL = 'hi@abhithakur.dev';
 
 export function Contact() {
   return (

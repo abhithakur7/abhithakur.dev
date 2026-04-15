@@ -47,7 +47,7 @@ export function Nav() {
             <LinkedinIcon className="size-4" />
           </a>
           <a
-            href="mailto:thakur.abhi270@gmail.com"
+            href="mailto:hi@abhithakur.dev"
             aria-label="Email"
             className={iconLink}
           >
