@@ -19,8 +19,12 @@ export function Nav() {
         aria-label="Primary"
         className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-6 px-6"
       >
-        <Link href="/" className="font-mono text-sm font-medium">
-          abhishek.dev
+        <Link
+          href="/"
+          className="group inline-flex items-baseline gap-1 font-mono text-sm uppercase tracking-widest text-foreground"
+        >
+          <span aria-hidden className="text-accent">/</span>
+          <span className="font-medium">Abhishek Thakur</span>
         </Link>
         <NavSections />
         <div className="flex items-center gap-2">
