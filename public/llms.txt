@@ -5,7 +5,7 @@
 > Open to senior / staff roles, remote, global.
 
 - Site: https://abhithakur.dev
-- Résumé (PDF): https://abhithakur.dev/resume.pdf
+- Résumé (PDF): https://abhithakur.dev/abhishek-thakur-resume.pdf
 - LinkedIn: https://www.linkedin.com/in/abhi-thakur-dev/
 - GitHub: https://github.com/abhithakur7
 - Email: thakur.abhi270@gmail.com
@@ -26,5 +26,5 @@
 
 ## Optional
 
-- [Résumé (PDF)](https://abhithakur.dev/resume.pdf)
+- [Résumé (PDF)](https://abhithakur.dev/abhishek-thakur-resume.pdf)
 - [Sitemap](https://abhithakur.dev/sitemap.xml)

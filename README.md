@@ -27,7 +27,7 @@ components/           Reusable UI — hero, nav, splash, diagrams, JSON-LD, magn
 components/diagrams/  Inline-SVG pipeline diagrams per case study
 content/work/         MDX case studies with Zod-validated frontmatter
 lib/                  Content loading, schema, prev/next helpers
-public/               Static assets — resume.pdf, llms.txt, favicons
+public/               Static assets — abhishek-thakur-resume.pdf, llms.txt, favicons
 ```
 
 ## Running locally

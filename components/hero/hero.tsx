@@ -45,7 +45,7 @@ export function Hero() {
               />
             </MagneticLink>
             <MagneticLink
-              href="/resume.pdf"
+              href="/abhishek-thakur-resume.pdf"
               target="_blank"
               rel="noopener"
               className={`inline-flex h-11 items-center gap-1.5 rounded-full border border-border px-5 text-sm font-medium hover:bg-muted ${cta}`}
