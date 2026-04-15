@@ -4,7 +4,7 @@ import { getAllWork } from '@/lib/content';
 export const dynamic = 'force-static';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = 'https://me-nine-ivory.vercel.app';
+  const base = 'https://abhithakur.dev';
   const work = await getAllWork();
   return [
     { url: base, lastModified: new Date(), priority: 1 },

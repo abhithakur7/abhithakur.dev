@@ -25,7 +25,7 @@ const display = Fraunces({
 export const metadata: Metadata = {
   title: 'Abhishek Thakur — Senior Full-Stack Engineer',
   description: 'SaaS & payment systems. Node, NestJS, React, Stripe, GCP.',
-  metadataBase: new URL('https://me-nine-ivory.vercel.app'),
+  metadataBase: new URL('https://abhithakur.dev'),
 };
 
 export default function RootLayout({
