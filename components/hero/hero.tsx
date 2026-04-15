@@ -1,6 +1,8 @@
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { HeroFallback } from './hero-fallback';
 import { HeroMeshClient } from './hero-mesh-client';
+import { HeroName } from './hero-name';
+import { MagneticLink } from '@/components/magnetic-link';
 
 export function Hero() {
   const cta =
@@ -13,22 +15,15 @@ export function Hero() {
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-24 sm:py-32 lg:grid-cols-[1fr_auto] lg:items-end">
         <div>
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-            <span
-              aria-hidden
-              className="relative flex size-1.5"
-            >
+            <span aria-hidden className="relative flex size-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
               <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
             </span>
             <span>Available now · Senior Full-Stack Engineer · Chandigarh, India</span>
           </div>
-          <h1 className="font-display mt-7 text-balance text-6xl font-medium leading-[0.95] tracking-tight sm:text-7xl lg:text-[8rem]">
-            Abhishek
-            <br />
-            <span className="italic" style={{ fontVariationSettings: '"WONK" 1, "SOFT" 100' }}>
-              Thakur.
-            </span>
-          </h1>
+
+          <HeroName />
+
           <p className="mt-9 max-w-xl text-balance text-lg leading-relaxed text-muted-foreground sm:text-xl">
             I build{' '}
             <span className="text-foreground">SaaS platforms</span> and{' '}
@@ -37,21 +32,25 @@ export function Hero() {
             <span className="text-foreground">senior / staff</span> roles,
             remote, global.
           </p>
+
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a
+            <MagneticLink
               href="#work"
-              className={`group inline-flex h-11 items-center gap-1.5 rounded-full bg-foreground px-5 text-sm font-medium text-background transition hover:opacity-90 ${cta}`}
+              className={`group inline-flex h-11 items-center gap-1.5 rounded-full bg-foreground px-5 text-sm font-medium text-background transition-opacity hover:opacity-90 ${cta}`}
             >
               View work
-              <ArrowDown className="size-4 transition group-hover:translate-y-0.5" aria-hidden />
-            </a>
-            <a
+              <ArrowDown
+                className="size-4 transition group-hover:translate-y-0.5"
+                aria-hidden
+              />
+            </MagneticLink>
+            <MagneticLink
               href="/resume.pdf"
               className={`inline-flex h-11 items-center gap-1.5 rounded-full border border-border px-5 text-sm font-medium hover:bg-muted ${cta}`}
             >
               Résumé
               <ArrowUpRight className="size-4" aria-hidden />
-            </a>
+            </MagneticLink>
           </div>
         </div>
 
