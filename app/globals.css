@@ -38,6 +38,66 @@ html {
   font-variation-settings: "SOFT" 50, "WONK" 0;
 }
 
+/* ----- Case study prose decoration -----
+   Done in CSS (not Tailwind prose modifiers) because v4 + typography
+   plugin had specificity conflicts on the ::before pseudo. */
+.cs-prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  color: var(--color-foreground);
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  scroll-margin-top: 6rem;
+}
+.cs-prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
+  content: "§";
+  color: var(--color-accent);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7em;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+  transform: translateY(-0.05em);
+}
+.cs-prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  color: var(--color-foreground);
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 6rem;
+}
+.cs-prose :where(strong):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  color: var(--color-foreground);
+  font-weight: 600;
+}
+.cs-prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 4px;
+}
+.cs-prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)):hover {
+  text-decoration-color: var(--color-foreground);
+}
+.cs-prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  background: var(--color-muted);
+  border-radius: 0.3rem;
+  padding: 0.1rem 0.4rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.875em;
+  font-weight: 400;
+}
+.cs-prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before,
+.cs-prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
+  content: none;
+}
+.cs-prose :where(li):not(:where([class~="not-prose"], [class~="not-prose"] *))::marker {
+  color: var(--color-muted-foreground);
+}
+.cs-prose :where(hr):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  border-color: var(--color-border);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

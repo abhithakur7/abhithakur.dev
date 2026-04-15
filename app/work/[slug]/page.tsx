@@ -127,7 +127,7 @@ export default async function CaseStudyPage({
         </ul>
       </header>
 
-      <div className="prose prose-neutral prose-lg dark:prose-invert mt-14 max-w-none prose-headings:font-display prose-headings:font-medium prose-headings:tracking-tight prose-headings:scroll-mt-24 prose-h2:mt-16 prose-h2:mb-6 prose-h2:flex prose-h2:items-baseline prose-h2:gap-3 prose-h2:before:font-mono prose-h2:before:text-xs prose-h2:before:uppercase prose-h2:before:tracking-widest prose-h2:before:text-accent prose-h2:before:content-['§'] prose-strong:font-semibold prose-strong:text-foreground prose-a:underline-offset-4 prose-a:decoration-border hover:prose-a:decoration-foreground prose-code:rounded prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-[0.875em] prose-code:font-normal prose-code:before:content-none prose-code:after:content-none prose-hr:border-border prose-li:marker:text-muted-foreground">
+      <div className="cs-prose prose prose-neutral prose-lg dark:prose-invert mt-14 max-w-none">
         <MDXRemote
           source={body}
           components={{
