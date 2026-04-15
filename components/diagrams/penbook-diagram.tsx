@@ -2,11 +2,11 @@ import { DiagramFrame } from './diagram-frame';
 
 export function PenbookDiagram() {
   return (
-    <DiagramFrame caption="Fig. 02 — One backend, four product surfaces">
+    <DiagramFrame caption="Fig. 02 — Modular monolith: four surfaces, isolated NestJS modules">
       <svg
-        viewBox="0 0 720 320"
+        viewBox="0 0 720 380"
         role="img"
-        aria-label="Four product surfaces — Writing, Reading, Content, and Book Clubs — fan in to a single NestJS API layer, which talks to MongoDB and OpenAI."
+        aria-label="Four product surfaces — Writing, Reading, Content, and Book Clubs — fan into a NestJS modular monolith. Inside, six bounded modules: accounts, writing, reading, content, clubs, and AI. The monolith talks to MongoDB and OpenAI."
         className="block w-full text-foreground"
         fill="none"
       >
@@ -22,7 +22,7 @@ export function PenbookDiagram() {
               x={s.x}
               y={20}
               width={120}
-              height={56}
+              height={50}
               rx={6}
               stroke="currentColor"
               strokeOpacity={0.4}
@@ -30,7 +30,7 @@ export function PenbookDiagram() {
             />
             <text
               x={s.x + 60}
-              y={45}
+              y={43}
               textAnchor="middle"
               fontFamily="ui-monospace, monospace"
               fontSize={11}
@@ -41,7 +41,7 @@ export function PenbookDiagram() {
             </text>
             <text
               x={s.x + 60}
-              y={60}
+              y={57}
               textAnchor="middle"
               fontFamily="ui-monospace, monospace"
               fontSize={9}
@@ -51,12 +51,11 @@ export function PenbookDiagram() {
             >
               {s.sub}
             </text>
-            {/* Connector */}
             <line
               x1={s.x + 60}
-              y1={76}
+              y1={70}
               x2={360}
-              y2={150}
+              y2={130}
               stroke="currentColor"
               strokeOpacity={0.3}
               strokeWidth={1}
@@ -65,32 +64,68 @@ export function PenbookDiagram() {
           </g>
         ))}
 
-        {/* NestJS API layer */}
+        {/* NestJS modular monolith — outer box */}
         <rect
-          x={120}
-          y={150}
-          width={480}
-          height={56}
-          rx={8}
+          x={40}
+          y={130}
+          width={640}
+          height={130}
+          rx={10}
           fill="currentColor"
-          fillOpacity={0.06}
+          fillOpacity={0.04}
           stroke="currentColor"
           strokeWidth={1.5}
         />
         <text
-          x={360}
-          y={177}
-          textAnchor="middle"
+          x={60}
+          y={152}
           fontFamily="ui-monospace, monospace"
-          fontSize={12}
+          fontSize={10}
           letterSpacing={2}
+          fillOpacity={0.7}
           fill="currentColor"
         >
-          NESTJS API
+          NESTJS · MODULAR MONOLITH
         </text>
+
+        {/* Internal modules — 6 boxes in a row */}
+        {[
+          { label: 'accounts', x: 60 },
+          { label: 'writing', x: 160 },
+          { label: 'reading', x: 260 },
+          { label: 'content', x: 360 },
+          { label: 'clubs', x: 460 },
+          { label: 'ai', x: 560 },
+        ].map((m) => (
+          <g key={m.label}>
+            <rect
+              x={m.x}
+              y={170}
+              width={88}
+              height={40}
+              rx={4}
+              fill="currentColor"
+              fillOpacity={0.06}
+              stroke="currentColor"
+              strokeOpacity={0.5}
+              strokeWidth={1}
+            />
+            <text
+              x={m.x + 44}
+              y={194}
+              textAnchor="middle"
+              fontFamily="ui-monospace, monospace"
+              fontSize={11}
+              letterSpacing={1}
+              fill="currentColor"
+            >
+              {m.label}
+            </text>
+          </g>
+        ))}
         <text
           x={360}
-          y={195}
+          y={236}
           textAnchor="middle"
           fontFamily="ui-monospace, monospace"
           fontSize={9}
@@ -98,18 +133,18 @@ export function PenbookDiagram() {
           fillOpacity={0.55}
           fill="currentColor"
         >
-          shared auth · data model · conventions
+          bounded interfaces · shared auth and data conventions
         </text>
 
         {/* Two backing systems */}
-        <line x1={300} y1={206} x2={250} y2={250} stroke="currentColor" strokeOpacity={0.3} strokeWidth={1} strokeDasharray="2 3" />
-        <line x1={420} y1={206} x2={470} y2={250} stroke="currentColor" strokeOpacity={0.3} strokeWidth={1} strokeDasharray="2 3" />
+        <line x1={300} y1={260} x2={250} y2={300} stroke="currentColor" strokeOpacity={0.3} strokeWidth={1} strokeDasharray="2 3" />
+        <line x1={420} y1={260} x2={470} y2={300} stroke="currentColor" strokeOpacity={0.3} strokeWidth={1} strokeDasharray="2 3" />
 
         <rect
           x={170}
-          y={250}
+          y={300}
           width={160}
-          height={44}
+          height={48}
           rx={6}
           stroke="currentColor"
           strokeOpacity={0.4}
@@ -117,7 +152,7 @@ export function PenbookDiagram() {
         />
         <text
           x={250}
-          y={272}
+          y={324}
           textAnchor="middle"
           fontFamily="ui-monospace, monospace"
           fontSize={11}
@@ -128,7 +163,7 @@ export function PenbookDiagram() {
         </text>
         <text
           x={250}
-          y={285}
+          y={338}
           textAnchor="middle"
           fontFamily="ui-monospace, monospace"
           fontSize={8}
@@ -141,9 +176,9 @@ export function PenbookDiagram() {
 
         <rect
           x={390}
-          y={250}
+          y={300}
           width={160}
-          height={44}
+          height={48}
           rx={6}
           stroke="currentColor"
           strokeOpacity={0.4}
@@ -151,7 +186,7 @@ export function PenbookDiagram() {
         />
         <text
           x={470}
-          y={272}
+          y={324}
           textAnchor="middle"
           fontFamily="ui-monospace, monospace"
           fontSize={11}
@@ -162,7 +197,7 @@ export function PenbookDiagram() {
         </text>
         <text
           x={470}
-          y={285}
+          y={338}
           textAnchor="middle"
           fontFamily="ui-monospace, monospace"
           fontSize={8}

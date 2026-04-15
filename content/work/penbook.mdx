@@ -25,17 +25,19 @@ I built it solo at Bizdesire — NestJS over MongoDB on the backend, the OpenAI 
 
 ## What I built
 
-- **NestJS + MongoDB backend.** A modular Nest service exposing the APIs the four surfaces need — stories, chapters, posts, clubs, and the relationships between them. Mongo's document model fits the natural shape of a manuscript: a story with nested chapters, scenes, and revisions, queryable in one round-trip instead of stitched together with joins.
-- **Optimised query patterns.** Selective projections so the editor doesn't ship an entire manuscript when it only needs the current chapter; compound indexes on the access patterns the reading and discovery flows actually use; aggregation pipelines for feed and club summaries instead of N+1 fetches in the API layer.
+- **NestJS modular monolith.** One deployable, but each product surface is its own bounded module — `accounts`, `writing`, `reading`, `content`, `clubs`, `ai` — with explicit interfaces between them. Cross-module access goes through declared providers; modules can't reach into each other's internals. Solo work, but structured so any one of these could lift cleanly into its own service later without a rewrite.
+- **MongoDB-shaped data.** A book's natural unit of work is a document with nested structure (chapters, scenes, revisions). Mongo fit the shape natively — queryable in one round-trip instead of stitched together with joins, indexes tuned per module to the access patterns each one actually serves.
+- **Per-module query patterns.** Selective projections so the editor doesn't ship an entire manuscript when it only needs the current chapter; compound indexes scoped to each module's access patterns; aggregation pipelines for feed and club summaries instead of N+1 fetches in the API layer.
 - **OpenAI integration for the writing surface.** Powers AI-driven content creation and editing — prompt construction, request shaping, and response handling all live server-side so the client never sees a key. Designed so prompt iteration is a config change, not a redeploy of the front-end.
 - **Real-time collaboration primitives.** Live presence and concurrent editing for shared drafts so co-writers can work the same piece without clobbering each other's edits.
 - **Content + community APIs.** The endpoints behind shared posts, club membership, author engagement, and the discovery/feed paths that connect readers to writers.
 
 ## Key decisions
 
-- **Mongo over a relational store.** A book's natural unit of work is a document with nested structure (chapters, scenes, revisions). Modelling that relationally would have meant constant joins or JSON-in-a-column. Mongo fit the access pattern natively, and the query plans stayed simple.
-- **Server-side AI mediation.** The OpenAI client lives in the API, not in the browser — keys stay protected, prompts are versioned in code, and per-user usage can be capped without trusting the client.
-- **One backend across four surfaces.** Writing, reading, content, and clubs share the same data model, the same auth, and the same API conventions. Adding a new feature on any surface mostly means a new endpoint and a query, not a new service.
+- **Modular monolith over either extreme.** Microservices would have been overkill for a one-engineer team; a free-for-all monolith would have rotted into tangled imports within months. NestJS modules with explicit boundaries gave me the deploy simplicity of a monolith and the seam discipline of services — and any one module can be extracted later without a rewrite.
+- **Mongo over a relational store.** A book's natural unit of work is a document with nested structure (chapters, scenes, revisions). Modelling that relationally would have meant constant joins or JSON-in-a-column. Mongo fit the access pattern natively.
+- **Server-side AI mediation.** The OpenAI client lives in the `ai` module, not in the browser — keys stay protected, prompts are versioned in code, and per-user usage can be capped without trusting the client.
+- **One backend, four surfaces, six modules.** Writing, reading, content, and clubs share the same auth, the same data conventions, and the same deployment — but each lives in its own module so a change in `clubs` can't accidentally break `writing`.
 - **Event-driven real-time channel per document.** Live edits propagate through a per-document gateway channel rather than a single global pipe — fanout stays bounded and presence stays cheap.
 
 ## Role
