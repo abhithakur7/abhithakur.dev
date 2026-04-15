@@ -1,34 +1,36 @@
 ---
 slug: uplevelit
 title: Uplevelit
-tagline: Multi-tenant SaaS with Stripe wallets, payouts, and per-tenant white-label deployments.
-stack: [Node.js, TypeScript, NestJS, React, PostgreSQL, Stripe, GCP, Docker]
+tagline: Marketplace connecting clients with coaches, mentors, advisors, and trainers — with bookable video sessions and creator payouts.
+stack: [TypeScript, React, Firebase Functions, Firebase Hosting, Stripe, Twilio Video, SendGrid, Bunny.net, Looker Studio]
 liveUrl: https://uplevelit.com
 role: Development Team Lead
 teamSize: 5 engineers
 timeframe: Feb 2024 – present
 order: 1
-summary: Led engineering on a multi-tenant SaaS with RBAC, wildcard subdomain routing, and a Stripe-backed wallet/payout system.
+summary: Led engineering on a two-sided marketplace for coaches and their clients — bookings, video calls, Stripe-backed payouts, and analytics.
 ---
 
 ## Overview
 
-Uplevelit is a multi-tenant SaaS platform serving white-labelled deployments per customer. I lead a team of 5 engineers across backend, frontend, and infrastructure, shipping on a Node.js / TypeScript / NestJS / React stack deployed on GCP.
+Uplevelit is a two-sided platform: clients discover and book sessions with coaches, mentors, advisors, and trainers across every industry; creators get the tools to run their practice on. I lead a team of 5 engineers, shipping a React front-end on Firebase Hosting with a Firebase Functions backend.
 
 ## What I built
 
-- **Multi-tenant architecture.** Designed RBAC with tenant-level data isolation, so every request resolves to a tenant context before touching data. Wildcard subdomain routing at the edge handles per-tenant white-label branding without per-tenant code branches.
-- **Microservices split.** Scoped the platform as a 4-service system behind a dedicated API gateway. Each service owns its domain (billing, tenants, content, notifications) and communicates over typed contracts.
-- **End-to-end Stripe billing.** Subscriptions, wallet top-ups, payouts, refunds, and webhook handlers. Idempotent transactions across distributed services eliminate duplicate payments under retry storms and webhook replays.
-- **Operational surface.** Containerised services with Docker, deployed via GCR on GCP. CI/CD via GitHub Actions and Bitbucket Pipelines drives production deployments, rollbacks, and monitoring hooks.
-- **Integrations.** Twilio for transactional SMS, SendGrid for email, CDN-based media delivery.
+- **Booking and session flow.** Browse creators, book a slot, and run the session as a Twilio-powered video call inside the platform — no external meeting tool required.
+- **Stripe payments and payouts.** Clients pay for sessions; creators earn into balances and are paid out via Stripe. Webhook handlers, refunds, and idempotent transaction handling so retries and replays never double-charge or double-payout.
+- **Serverless backend on Firebase Functions.** Business logic lives behind HTTPS and event-triggered functions — no servers to provision, and cold-start-friendly code paths for the endpoints that front the booking and payment flows.
+- **Media and email.** Bunny.net for CDN-delivered creator assets (fast globally, cheap per GB); SendGrid for transactional email — booking confirmations, reminders, receipts, password flows.
+- **Analytics.** Product metrics and creator/admin dashboards via Looker Studio, wired to the underlying data so stakeholders can self-serve reporting instead of pinging the team for numbers.
 
 ## Key decisions
 
-- **Idempotency keys over distributed locks.** Cheaper and safer for Stripe webhooks under retry storms than coordinating locks across services.
-- **Runtime tenant isolation over database-per-tenant.** Kept operational overhead flat as tenant count grows; row-level checks enforced in the ORM layer.
-- **API gateway as the auth boundary.** Services trust the gateway's signed context — they don't re-verify user sessions. Keeps service-to-service latency low and auth logic single-sourced.
+- **Firebase Functions over a managed Node service.** For a team of 5 shipping fast, serverless removed an entire ops surface — no containers, no autoscaling config, no deploy pipeline for the backend tier beyond `firebase deploy`.
+- **Twilio Video instead of building a WebRTC stack.** The product is about the *session*, not the plumbing. Twilio handles TURN/STUN, recording, and quality — we spent our cycles on UX around the call.
+- **Bunny.net for CDN.** Cheaper than Cloudfront and simpler to wire up for the media/asset patterns we actually had; no lock-in to a cloud vendor's storage.
+- **Idempotency keys on every Stripe-touching function.** Functions can fire twice under retries; keys make double-execution safe.
+- **Looker Studio over a custom analytics build.** Stakeholders get charts without the team owning a BI tool — and dashboards stay current without dev cycles.
 
 ## Role
 
-As team lead, I owned architecture decisions, code review, and delivery alongside hands-on development — particularly the billing and multi-tenant primitives.
+As team lead I own architecture and delivery alongside hands-on development — especially the booking, payment, and payout code paths the product depends on.
