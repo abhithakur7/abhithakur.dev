@@ -103,7 +103,7 @@ export function Splash() {
             transition={{ delay: 0.2, duration: 0.5, ease: EASE_OUT_EXPO }}
             exit={{ opacity: 0, transition: { duration: 0.2 } }}
           >
-            Abhishek Thakur · § 01
+            Abhishek Thakur · §
           </motion.p>
 
           {/* Mono caption — bottom */}
