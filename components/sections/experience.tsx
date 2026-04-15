@@ -27,7 +27,7 @@ export function Experience() {
                   href={e.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  className="underline decoration-border underline-offset-4 hover:decoration-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 >
                   {e.company}
                 </a>
