@@ -3,7 +3,7 @@ export const EXPERIENCE = [
     company: 'Bizdesire',
     url: 'https://bizdesire.co/',
     role: 'Development Team Lead',
-    period: 'Feb 2024 – 2026',
+    period: 'Feb 2024 – Apr 2026',
     summary:
       'Led a 5-engineer team on Uplevelit (Experience-as-a-Service marketplace) and shipped Penbook and Rocket Rebates solo — Firebase, NestJS, MongoDB, Stripe, Twilio Video, OpenAI.',
   },
