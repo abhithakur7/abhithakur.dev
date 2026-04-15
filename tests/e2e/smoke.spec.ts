@@ -24,6 +24,6 @@ test('theme toggle swaps the html class', async ({ page }) => {
 
 test('nav home link works', async ({ page }) => {
   await page.goto('/work/uplevelit');
-  await page.getByRole('link', { name: /abhishek\.dev/i }).click();
+  await page.getByRole('link', { name: /abhishek thakur/i }).click();
   await expect(page).toHaveURL('/');
 });
