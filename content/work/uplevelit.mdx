@@ -2,7 +2,7 @@
 slug: uplevelit
 title: Uplevelit
 tagline: Marketplace connecting clients with coaches, mentors, advisors, and trainers — with bookable video sessions and creator payouts.
-stack: [TypeScript, React, Firebase Functions, Firebase Hosting, Stripe, Twilio Video, SendGrid, Bunny.net, Looker Studio]
+stack: [TypeScript, React, Firebase Functions, Firebase Hosting, Stripe, Twilio Video, SendGrid, Bunny Stream, Looker Studio]
 liveUrl: https://uplevelit.com
 role: Development Team Lead
 teamSize: 5 engineers
@@ -20,14 +20,14 @@ Uplevelit is a two-sided platform: clients discover and book sessions with coach
 - **Booking and session flow.** Browse creators, book a slot, and run the session as a Twilio-powered video call inside the platform — no external meeting tool required.
 - **Stripe payments and payouts.** Clients pay for sessions; creators earn into balances and are paid out via Stripe. Webhook handlers, refunds, and idempotent transaction handling so retries and replays never double-charge or double-payout.
 - **Serverless backend on Firebase Functions.** Business logic lives behind HTTPS and event-triggered functions — no servers to provision, and cold-start-friendly code paths for the endpoints that front the booking and payment flows.
-- **Media and email.** Bunny.net for CDN-delivered creator assets (fast globally, cheap per GB); SendGrid for transactional email — booking confirmations, reminders, receipts, password flows.
+- **Video storage and email.** Bunny.net Stream for session video storage and delivery — recorded calls, creator-uploaded intros, and other video assets. SendGrid for transactional email — booking confirmations, reminders, receipts, password flows.
 - **Analytics.** Product metrics and creator/admin dashboards via Looker Studio, wired to the underlying data so stakeholders can self-serve reporting instead of pinging the team for numbers.
 
 ## Key decisions
 
 - **Firebase Functions over a managed Node service.** For a team of 5 shipping fast, serverless removed an entire ops surface — no containers, no autoscaling config, no deploy pipeline for the backend tier beyond `firebase deploy`.
 - **Twilio Video instead of building a WebRTC stack.** The product is about the *session*, not the plumbing. Twilio handles TURN/STUN, recording, and quality — we spent our cycles on UX around the call.
-- **Bunny.net for CDN.** Cheaper than Cloudfront and simpler to wire up for the media/asset patterns we actually had; no lock-in to a cloud vendor's storage.
+- **Bunny.net Stream for video.** Purpose-built for video storage and delivery — transcoding, adaptive streaming, and CDN in one, without stitching S3 + MediaConvert + CloudFront together.
 - **Idempotency keys on every Stripe-touching function.** Functions can fire twice under retries; keys make double-execution safe.
 - **Looker Studio over a custom analytics build.** Stakeholders get charts without the team owning a BI tool — and dashboards stay current without dev cycles.
 
