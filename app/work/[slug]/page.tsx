@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getAllWork, getWorkBySlug } from '@/lib/content';
 import { computePrevNext } from '@/lib/prev-next';
+import { CaseStudyJsonLd } from '@/components/json-ld';
 import { UplevelitDiagram } from '@/components/diagrams/uplevelit-diagram';
 import { PenbookDiagram } from '@/components/diagrams/penbook-diagram';
 import { RebatesDiagram } from '@/components/diagrams/rebates-diagram';
@@ -29,7 +30,26 @@ export async function generateMetadata({
   const { slug } = await params;
   const w = await getWorkBySlug(slug);
   if (!w) return {};
-  return { title: `${w.title} — Abhishek Thakur`, description: w.summary };
+  const url = `https://abhithakur.dev/work/${slug}`;
+  const title = `${w.title} — Abhishek Thakur`;
+  return {
+    title,
+    description: w.summary,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'article',
+      url,
+      title,
+      description: w.summary,
+      authors: ['Abhishek Thakur'],
+      ...(w.publishedAt && { publishedTime: w.publishedAt }),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: w.summary,
+    },
+  };
 }
 
 export default async function CaseStudyPage({
@@ -57,6 +77,12 @@ export default async function CaseStudyPage({
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
+      <CaseStudyJsonLd
+        slug={meta.slug}
+        title={meta.title}
+        summary={meta.summary}
+        publishedAt={meta.publishedAt}
+      />
       <Link
         href="/#work"
         className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"

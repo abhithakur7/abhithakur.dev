@@ -10,6 +10,10 @@ export const workFrontmatter = z.object({
   timeframe: z.string().min(1),
   order: z.number().int().positive(),
   summary: z.string().min(1),
+  publishedAt: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'publishedAt must be ISO date (YYYY-MM-DD)')
+    .optional(),
 });
 export type WorkFrontmatter = z.infer<typeof workFrontmatter>;
 
