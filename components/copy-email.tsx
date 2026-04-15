@@ -13,7 +13,7 @@ export function CopyEmail({ email }: { email: string }) {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       }}
-      className="inline-flex h-11 items-center gap-2 rounded-md border border-border px-5 text-sm hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      className="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 text-sm hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
     >
       {copied ? (
         <>

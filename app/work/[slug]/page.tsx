@@ -43,47 +43,54 @@ export default async function CaseStudyPage({
     slug,
   );
   const bySlug = new Map(all.map((w) => [w.slug, w]));
+  const idx = all.findIndex((w) => w.slug === slug);
+  const indexLabel = String(idx + 1).padStart(2, '0');
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
       <Link
         href="/#work"
-        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
       >
-        <ArrowLeft className="size-4" aria-hidden /> Back to work
+        <ArrowLeft className="size-3.5" aria-hidden /> Back to work
       </Link>
 
-      <header className="mt-8 border-b border-border pb-10">
-        <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-          Case study
-        </p>
-        <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
+      <header className="mt-10 border-b border-border pb-12">
+        <div className="flex items-baseline gap-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          <span className="tabular-nums">{indexLabel}</span>
+          <span aria-hidden className="h-px flex-1 bg-border" />
+          <span>Case study</span>
+        </div>
+
+        <h1 className="font-display mt-8 text-balance text-5xl font-medium leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
           {meta.title}
+          <span className="text-accent">.</span>
         </h1>
-        <p className="mt-5 text-balance text-lg text-muted-foreground">
+
+        <p className="font-display mt-7 max-w-2xl text-balance text-xl italic leading-snug text-muted-foreground sm:text-2xl">
           {meta.tagline}
         </p>
 
-        <dl className="mt-8 grid grid-cols-2 gap-6 text-sm sm:grid-cols-3">
+        <dl className="mt-10 grid grid-cols-2 gap-6 text-sm sm:grid-cols-3">
           <div>
-            <dt className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+            <dt className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
               Role
             </dt>
-            <dd className="mt-1.5">{meta.role}</dd>
+            <dd className="mt-2">{meta.role}</dd>
           </div>
           <div>
-            <dt className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+            <dt className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
               When
             </dt>
-            <dd className="mt-1.5">{meta.timeframe}</dd>
+            <dd className="mt-2 tabular-nums">{meta.timeframe}</dd>
           </div>
           <div>
-            <dt className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+            <dt className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
               Live
             </dt>
-            <dd className="mt-1.5">
+            <dd className="mt-2">
               <a
-                className="inline-flex items-center gap-1 underline underline-offset-4 decoration-border hover:decoration-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                className="inline-flex items-center gap-1 underline decoration-border underline-offset-4 hover:decoration-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 href={meta.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -99,7 +106,7 @@ export default async function CaseStudyPage({
           {meta.stack.map((s) => (
             <li
               key={s}
-              className="rounded-md border border-border bg-muted/40 px-2 py-0.5 font-mono text-[11px] text-muted-foreground"
+              className="rounded-full border border-border bg-muted/40 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground"
             >
               {s}
             </li>
@@ -107,23 +114,24 @@ export default async function CaseStudyPage({
         </ul>
       </header>
 
-      <div className="prose prose-neutral prose-lg dark:prose-invert mt-12 max-w-none prose-headings:scroll-mt-24 prose-headings:font-semibold prose-headings:tracking-tight prose-strong:font-semibold prose-strong:text-foreground prose-a:underline-offset-4 prose-a:decoration-border hover:prose-a:decoration-foreground prose-code:rounded prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-[0.875em] prose-code:font-normal prose-code:before:content-none prose-code:after:content-none prose-hr:border-border">
+      <div className="prose prose-neutral prose-lg dark:prose-invert mt-14 max-w-none prose-headings:font-display prose-headings:font-medium prose-headings:tracking-tight prose-headings:scroll-mt-24 prose-h2:mt-16 prose-h2:mb-6 prose-h2:flex prose-h2:items-baseline prose-h2:gap-3 prose-h2:before:font-mono prose-h2:before:text-xs prose-h2:before:uppercase prose-h2:before:tracking-widest prose-h2:before:text-accent prose-h2:before:content-['§'] prose-strong:font-semibold prose-strong:text-foreground prose-a:underline-offset-4 prose-a:decoration-border hover:prose-a:decoration-foreground prose-code:rounded prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-[0.875em] prose-code:font-normal prose-code:before:content-none prose-code:after:content-none prose-hr:border-border prose-li:marker:text-muted-foreground">
         <MDXRemote source={body} />
       </div>
 
       <nav
-        className="mt-20 grid grid-cols-2 gap-4 border-t border-border pt-8 text-sm"
+        className="mt-20 grid grid-cols-2 gap-3 border-t border-border pt-8 text-sm sm:gap-4"
         aria-label="Case study pagination"
       >
         {prev ? (
           <Link
             href={`/work/${prev}`}
-            className="group rounded-lg border border-border p-4 transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="group rounded-xl border border-border p-5 transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
-            <span className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-              <ArrowLeft className="size-3" aria-hidden /> Previous
+            <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              <ArrowLeft className="size-3 transition group-hover:-translate-x-0.5" aria-hidden />
+              Previous
             </span>
-            <span className="mt-1.5 block font-medium">
+            <span className="font-display mt-2 block text-lg font-medium tracking-tight">
               {bySlug.get(prev)?.title ?? prev}
             </span>
           </Link>
@@ -133,12 +141,13 @@ export default async function CaseStudyPage({
         {next ? (
           <Link
             href={`/work/${next}`}
-            className="group rounded-lg border border-border p-4 text-right transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="group rounded-xl border border-border p-5 text-right transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
-            <span className="flex items-center justify-end gap-1.5 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-              Next <ArrowRight className="size-3" aria-hidden />
+            <span className="flex items-center justify-end gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              Next
+              <ArrowRight className="size-3 transition group-hover:translate-x-0.5" aria-hidden />
             </span>
-            <span className="mt-1.5 block font-medium">
+            <span className="font-display mt-2 block text-lg font-medium tracking-tight">
               {bySlug.get(next)?.title ?? next}
             </span>
           </Link>

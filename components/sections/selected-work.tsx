@@ -1,55 +1,60 @@
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { getAllWork } from '@/lib/content';
+import { SectionHeader } from '@/components/section-header';
 
 export async function SelectedWork() {
   const work = await getAllWork();
   return (
     <section id="work" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
-      <header className="mb-14 sm:mb-20">
-        <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-          Selected work
-        </p>
-        <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-          Things I&apos;ve shipped
-        </h2>
-      </header>
-      <div className="grid gap-4 sm:gap-5 lg:grid-cols-3">
+      <SectionHeader
+        index="01"
+        eyebrow="Selected work"
+        title={
+          <>
+            Things I&apos;ve <span className="italic">shipped</span>.
+          </>
+        }
+        description="Three case studies from the last few years — the products live, the stacks real, the trade-offs honest."
+      />
+      <ol className="divide-y divide-border border-y border-border">
         {work.map((w, i) => (
-          <Link
-            key={w.slug}
-            href={`/work/${w.slug}`}
-            className={`group relative flex min-h-[220px] flex-col justify-between gap-10 rounded-xl border border-border bg-muted/30 p-6 sm:p-8 transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-              i === 0 ? 'lg:col-span-2 lg:min-h-[260px]' : ''
-            }`}
-          >
-            <div>
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="text-xl font-medium tracking-tight sm:text-2xl">
+          <li key={w.slug}>
+            <Link
+              href={`/work/${w.slug}`}
+              className="group grid grid-cols-12 items-baseline gap-6 py-8 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:py-10"
+            >
+              <span className="col-span-2 font-mono text-xs uppercase tracking-widest text-muted-foreground tabular-nums sm:col-span-1">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div className="col-span-10 sm:col-span-7">
+                <h3 className="font-display text-3xl font-medium tracking-tight transition group-hover:text-accent sm:text-4xl">
                   {w.title}
                 </h3>
+                <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  {w.tagline}
+                </p>
+              </div>
+              <div className="col-span-12 flex items-center justify-between gap-4 sm:col-span-4 sm:justify-end">
+                <ul className="flex flex-wrap gap-1.5 sm:justify-end">
+                  {w.stack.slice(0, 3).map((s) => (
+                    <li
+                      key={s}
+                      className="rounded-full border border-border bg-muted/40 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground"
+                    >
+                      {s}
+                    </li>
+                  ))}
+                </ul>
                 <ArrowUpRight
                   className="size-5 shrink-0 text-muted-foreground transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
                   aria-hidden
                 />
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {w.tagline}
-              </p>
-            </div>
-            <ul className="flex flex-wrap gap-1.5">
-              {w.stack.slice(0, 5).map((s) => (
-                <li
-                  key={s}
-                  className="rounded-md border border-border bg-background px-2 py-0.5 font-mono text-[11px] text-muted-foreground"
-                >
-                  {s}
-                </li>
-              ))}
-            </ul>
-          </Link>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ol>
     </section>
   );
 }
