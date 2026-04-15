@@ -1,34 +1,40 @@
 ---
 slug: uplevelit
 title: Uplevelit
-tagline: Marketplace connecting clients with coaches, mentors, advisors, and trainers — with bookable video sessions and creator payouts.
+tagline: An Experience-as-a-Service marketplace — 1:1 sessions, group classes, livecourses, and direct Q&A with operators who earned the knowledge in the field.
 stack: [TypeScript, React, Firebase Functions, Firebase Hosting, Stripe, Twilio Video, SendGrid, Bunny Stream, Looker Studio]
 liveUrl: https://uplevelit.com
 role: Development Team Lead
 timeframe: Feb 2024 – present
 order: 1
-summary: Led engineering on a two-sided marketplace for coaches and their clients — bookings, video calls, Stripe-backed payouts, and analytics.
+summary: Led engineering on an Experience-as-a-Service marketplace — bookable 1:1s, group sessions, livecourses, Q&A, video, and creator payouts.
 ---
 
 ## Overview
 
-Uplevelit is a two-sided platform: clients discover and book sessions with coaches, mentors, advisors, and trainers across every industry; creators get the tools to run their practice on. It ships as a React front-end on Firebase Hosting backed by Firebase Functions.
+Uplevelit is **Experience as a Service**. Real professionals connect with real people who need exactly what they have — through 1:1 sessions, group classes, livecourses, and direct Q&A. People learn from operators who earned their knowledge in the field; operators share what only they know and help someone standing exactly where they once stood.
+
+I lead the engineering team building it — a React front-end on Firebase Hosting backed by Firebase Functions, with Twilio Video for live sessions and Stripe for the money side.
 
 ## What I built
 
-- **Booking and session flow.** Browse creators, book a slot, and run the session as a Twilio-powered video call inside the platform — no external meeting tool required.
-- **Stripe payments and payouts.** Clients pay for sessions; creators earn into balances and are paid out via Stripe. Webhook handlers, refunds, and idempotent transaction handling so retries and replays never double-charge or double-payout.
-- **Serverless backend on Firebase Functions.** Business logic lives behind HTTPS and event-triggered functions — no servers to provision, and cold-start-friendly code paths for the endpoints that front the booking and payment flows.
-- **Video storage and email.** Bunny.net Stream for session video storage and delivery — recorded calls, creator-uploaded intros, and other video assets. SendGrid for transactional email — booking confirmations, reminders, receipts, password flows.
-- **Analytics.** Product metrics and creator/admin dashboards via Looker Studio, wired to the underlying data so stakeholders can self-serve reporting instead of pinging the team for numbers.
+- **Multi-format sessions.** One product, four delivery surfaces — 1:1 calls, group classes, livecourses, and asynchronous Q&A — sharing the same booking, payment, and notification primitives so the team isn't rebuilding plumbing per format.
+- **Discovery and booking.** Browse operators, see what they offer, book a slot. The booking flow holds the slot, charges via Stripe, and provisions the session room — all transactional so a payment failure doesn't strand a half-booked slot.
+- **Live video on Twilio.** Sessions run inside the platform — no Zoom link to share, no external meeting to coordinate. Twilio handles the WebRTC stack; we own the surrounding UX.
+- **Stripe payments and creator payouts.** Clients pay for sessions; operators earn into balances and are paid out via Stripe. Webhook handlers, refunds, and idempotent transaction handling so retries and replays never double-charge or double-payout.
+- **Serverless backend on Firebase Functions.** Business logic lives behind HTTPS and event-triggered functions — no servers to provision, no autoscaling to babysit. Each function owns one job; orchestration is explicit.
+- **Video storage on Bunny Stream.** Recorded sessions, operator-uploaded intros, course videos. Transcoding, adaptive streaming, and CDN in one place — without stitching S3 + MediaConvert + CloudFront together.
+- **Email via SendGrid.** Booking confirmations, reminders, receipts, password flows — all the transactional touchpoints a marketplace needs.
+- **Analytics with Looker Studio.** Operator earnings, session conversion, content performance — wired to the underlying data so stakeholders self-serve their numbers instead of pinging the team.
 
 ## Key decisions
 
-- **Firebase Functions over a managed Node service.** Serverless removed an entire ops surface — no containers, no autoscaling config, no deploy pipeline for the backend tier beyond `firebase deploy`.
-- **Twilio Video instead of building a WebRTC stack.** The product is about the *session*, not the plumbing. Twilio handles TURN/STUN, recording, and quality — we spent our cycles on UX around the call.
-- **Bunny.net Stream for video.** Purpose-built for video storage and delivery — transcoding, adaptive streaming, and CDN in one, without stitching S3 + MediaConvert + CloudFront together.
-- **Idempotency keys on every Stripe-touching function.** Functions can fire twice under retries; keys make double-execution safe.
-- **Looker Studio over a custom analytics build.** Stakeholders get charts without the team owning a BI tool — and dashboards stay current without dev cycles.
+- **Shared session abstraction across formats.** Treating 1:1, group, livecourse, and Q&A as variants of one *Session* object (not four separate features) keeps the booking, payment, and notification code paths singular — and means a new format ships in days, not weeks.
+- **Firebase Functions over a managed Node service.** Serverless removed an entire ops surface — no containers, no autoscaling config, no deploy pipeline for the backend tier beyond `firebase deploy`. Right call for a team that ships product, not infra.
+- **Twilio Video over a homemade WebRTC stack.** The product is about the *experience*, not the plumbing. Twilio handles TURN/STUN, recording, and quality — we spent our cycles on the UX around the call.
+- **Bunny Stream for video.** Purpose-built for video — transcoding, adaptive bitrate, and global CDN delivery in one product. Cheaper and simpler than the AWS triangle for our access patterns.
+- **Idempotency keys on every Stripe-touching function.** Functions can fire twice under webhook retries or client retries; idempotency keys make double-execution safe end-to-end.
+- **Looker Studio over a custom dashboard.** Stakeholders get charts without the team owning a BI tool — and dashboards stay current without dev cycles.
 
 ## Role
 
