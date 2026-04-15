@@ -27,7 +27,7 @@ export function Contact() {
         </a>
         <CopyEmail email={EMAIL} />
         <a
-          href="https://www.linkedin.com/in/abhishek-thakur-5a5260164/"
+          href="https://www.linkedin.com/in/abhi-thakur-dev/"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 text-sm hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"

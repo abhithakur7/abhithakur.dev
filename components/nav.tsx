@@ -38,7 +38,7 @@ export function Nav() {
             <GithubIcon className="size-4" />
           </a>
           <a
-            href="https://www.linkedin.com/in/abhishek-thakur-5a5260164/"
+            href="https://www.linkedin.com/in/abhi-thakur-dev/"
             aria-label="LinkedIn"
             className={iconLink}
             target="_blank"

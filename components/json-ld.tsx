@@ -47,7 +47,7 @@ export function PersonJsonLd() {
     jobTitle: 'Senior Full-Stack Engineer',
     sameAs: [
       'https://github.com/abhithakur7',
-      'https://www.linkedin.com/in/abhishek-thakur-5a5260164/',
+      'https://www.linkedin.com/in/abhi-thakur-dev/',
     ],
     address: {
       '@type': 'PostalAddress',
