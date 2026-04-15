@@ -42,14 +42,23 @@ export default function RootLayout({
       <head>
         {/* Set the page background colour BEFORE stylesheets load so the
             first paint matches the theme — eliminates the white-splash
-            flash before next-themes applies .dark. */}
+            flash before next-themes applies .dark. Also pre-decide whether
+            the intro splash should run, so already-seen visits and reduced
+            -motion users never see a flash of the overlay. */}
         <style>{`
           html { background-color: oklch(0.985 0.004 80); color-scheme: light dark; }
           @media (prefers-color-scheme: dark) {
             html { background-color: oklch(0.155 0.008 270); }
           }
           html.dark { background-color: oklch(0.155 0.008 270); }
+          html.splash-skip [data-splash] { display: none !important; }
         `}</style>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(sessionStorage.getItem('splash:seen')||matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('splash-skip')}}catch(e){}",
+          }}
+        />
       </head>
       <body className="min-h-dvh bg-background text-foreground antialiased">
         <ThemeProvider
