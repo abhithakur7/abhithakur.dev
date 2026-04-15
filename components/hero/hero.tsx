@@ -1,6 +1,6 @@
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { HeroFallback } from './hero-fallback';
-import { HeroMeshClient } from './hero-mesh-client';
+import { HeroMark } from './hero-mark';
 import { HeroName } from './hero-name';
 import { MagneticLink } from '@/components/magnetic-link';
 
@@ -11,7 +11,7 @@ export function Hero() {
   return (
     <section className="relative isolate flex min-h-[88dvh] items-center overflow-hidden">
       <HeroFallback />
-      <HeroMeshClient />
+      <HeroMark />
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-24 sm:py-32 lg:grid-cols-[1fr_auto] lg:items-end">
         <div>
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">

@@ -39,6 +39,18 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${mono.variable} ${display.variable}`}
     >
+      <head>
+        {/* Set the page background colour BEFORE stylesheets load so the
+            first paint matches the theme — eliminates the white-splash
+            flash before next-themes applies .dark. */}
+        <style>{`
+          html { background-color: oklch(0.985 0.004 80); color-scheme: light dark; }
+          @media (prefers-color-scheme: dark) {
+            html { background-color: oklch(0.155 0.008 270); }
+          }
+          html.dark { background-color: oklch(0.155 0.008 270); }
+        `}</style>
+      </head>
       <body className="min-h-dvh bg-background text-foreground antialiased">
         <ThemeProvider
           attribute="class"

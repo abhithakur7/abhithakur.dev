@@ -1,6 +1,6 @@
 'use client';
 import { useRef, type AnchorHTMLAttributes, type ReactNode } from 'react';
-import { useReducedMotion } from '@/lib/hooks/use-reduced-motion';
+import { useReducedMotion } from 'framer-motion';
 
 type Props = AnchorHTMLAttributes<HTMLAnchorElement> & {
   children: ReactNode;
