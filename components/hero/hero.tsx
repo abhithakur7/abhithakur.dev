@@ -20,7 +20,7 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
               <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
             </span>
-            <span>Available now · Senior Full-Stack Engineer · Chandigarh</span>
+            <span>Available now · Senior Full-Stack Engineer · Chandigarh, India</span>
           </div>
           <h1 className="font-display mt-7 text-balance text-6xl font-medium leading-[0.95] tracking-tight sm:text-7xl lg:text-[8rem]">
             Abhishek
