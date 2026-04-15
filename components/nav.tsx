@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Mail } from 'lucide-react';
 import { ThemeToggle } from './theme-toggle';
 import { GithubIcon, LinkedinIcon } from './icons';
+import { NavSections } from './nav-sections';
 
 export function Nav() {
   const iconLink =
@@ -14,16 +15,38 @@ export function Nav() {
       >
         Skip to content
       </a>
-      <nav aria-label="Primary" className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
-        <Link href="/" className="font-mono text-sm font-medium">abhishek.dev</Link>
+      <nav
+        aria-label="Primary"
+        className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-6 px-6"
+      >
+        <Link href="/" className="font-mono text-sm font-medium">
+          abhishek.dev
+        </Link>
+        <NavSections />
         <div className="flex items-center gap-2">
-          <a href="https://github.com/abhithakur7" aria-label="GitHub" className={iconLink} target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://github.com/abhithakur7"
+            aria-label="GitHub"
+            className={iconLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <GithubIcon className="size-4" />
           </a>
-          <a href="https://www.linkedin.com/in/abhishek-thakur-5a5260164/" aria-label="LinkedIn" className={iconLink} target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://www.linkedin.com/in/abhishek-thakur-5a5260164/"
+            aria-label="LinkedIn"
+            className={iconLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <LinkedinIcon className="size-4" />
           </a>
-          <a href="mailto:thakur.abhi270@gmail.com" aria-label="Email" className={iconLink}>
+          <a
+            href="mailto:thakur.abhi270@gmail.com"
+            aria-label="Email"
+            className={iconLink}
+          >
             <Mail className="size-4" aria-hidden />
           </a>
           <ThemeToggle />
