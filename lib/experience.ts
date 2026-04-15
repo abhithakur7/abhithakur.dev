@@ -1,6 +1,7 @@
 export const EXPERIENCE = [
   {
     company: 'Bizdesire',
+    url: 'https://bizdesire.co/',
     role: 'Development Team Lead',
     period: 'Feb 2024 – present',
     summary:
@@ -8,6 +9,7 @@ export const EXPERIENCE = [
   },
   {
     company: 'Appcore Labs',
+    url: 'https://appcorelabs.com/',
     role: 'Associate React & Node.js Developer',
     period: 'Oct 2022 – Dec 2023',
     summary:
@@ -15,6 +17,7 @@ export const EXPERIENCE = [
   },
   {
     company: 'Fyntune Solutions',
+    url: 'https://www.fyntune.com/',
     role: 'Frontend Developer (React)',
     period: 'Oct 2021 – Sept 2022',
     summary:

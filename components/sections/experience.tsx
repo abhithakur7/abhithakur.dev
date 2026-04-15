@@ -23,7 +23,14 @@ export function Experience() {
             <div>
               <h3 className="font-medium">
                 {e.role} ·{' '}
-                <span className="text-muted-foreground">{e.company}</span>
+                <a
+                  href={e.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                >
+                  {e.company}
+                </a>
               </h3>
               <p className="mt-1 text-sm text-muted-foreground">{e.summary}</p>
             </div>
