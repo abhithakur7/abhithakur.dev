@@ -7,7 +7,6 @@ export const workFrontmatter = z.object({
   stack: z.array(z.string().min(1)).min(1),
   liveUrl: z.string().url(),
   role: z.string().min(1),
-  teamSize: z.string().min(1),
   timeframe: z.string().min(1),
   order: z.number().int().positive(),
   summary: z.string().min(1),
