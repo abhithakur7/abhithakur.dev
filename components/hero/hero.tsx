@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUpRight, Download } from 'lucide-react';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { HeroFallback } from './hero-fallback';
 import { HeroMark } from './hero-mark';
 import { HeroName } from './hero-name';
@@ -50,16 +50,8 @@ export function Hero() {
               rel="noopener"
               className={`inline-flex h-11 items-center gap-1.5 rounded-full border border-border px-5 text-sm font-medium hover:bg-muted ${cta}`}
             >
-              View résumé
+              Résumé
               <ArrowUpRight className="size-4" aria-hidden />
-            </MagneticLink>
-            <MagneticLink
-              href="/resume.pdf"
-              download="abhishek-thakur-resume.pdf"
-              className={`inline-flex h-11 items-center gap-1.5 rounded-full px-4 text-sm font-medium text-muted-foreground hover:text-foreground ${cta}`}
-            >
-              <Download className="size-4" aria-hidden />
-              Download PDF
             </MagneticLink>
           </div>
         </div>
