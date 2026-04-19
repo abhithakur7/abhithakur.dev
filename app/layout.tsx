@@ -23,9 +23,37 @@ const display = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: 'Abhishek Thakur — Senior Full-Stack Engineer',
-  description: 'SaaS & payment systems. Node, NestJS, React, Stripe, GCP.',
   metadataBase: new URL('https://abhithakur.dev'),
+  title: {
+    default: 'Abhishek Thakur — Senior Full-Stack Engineer · Chandigarh, India',
+    template: '%s — Abhishek Thakur',
+  },
+  description:
+    'Abhishek Thakur is a senior full-stack engineer based in Chandigarh, India, building SaaS platforms and payment systems with Node, NestJS, React, Stripe, and GCP. Open to senior / staff roles, remote.',
+  applicationName: 'Abhishek Thakur',
+  authors: [{ name: 'Abhishek Thakur', url: 'https://abhithakur.dev' }],
+  creator: 'Abhishek Thakur',
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    url: 'https://abhithakur.dev',
+    title: 'Abhishek Thakur — Senior Full-Stack Engineer',
+    description:
+      'Senior full-stack engineer (SaaS & payments). Node, NestJS, React, Stripe, GCP. Based in Chandigarh, India.',
+    siteName: 'Abhishek Thakur',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Abhishek Thakur — Senior Full-Stack Engineer',
+    description:
+      'Senior full-stack engineer (SaaS & payments). Node, NestJS, React, Stripe, GCP.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
 };
 
 export default function RootLayout({

@@ -1,30 +1,80 @@
 # Abhishek Thakur
 
-> Senior full-stack engineer specialising in SaaS platforms and payment systems.
-> Node.js, NestJS, React, TypeScript, Stripe, Firebase, GCP. Based in Chandigarh, India.
-> Open to senior / staff roles, remote, global.
+> Senior full-stack engineer based in Chandigarh, India, building SaaS
+> platforms and payment systems. Known professionally as Abhishek Thakur;
+> also goes by Abhi Thakur or Abhi. Not to be confused with the Kaggle
+> Grandmaster of the same name — this Abhishek Thakur is the
+> full-stack/SaaS engineer at abhithakur.dev.
 
+## Identity
+
+- Name: Abhishek Thakur
+- Also known as: Abhi Thakur, Abhi
+- Location: Chandigarh, India
+- Role: Senior Full-Stack Engineer
+- Focus: SaaS platforms, payment systems, AI-assisted workflows
+- Open to: Senior / staff roles, remote, global
 - Site: https://abhithakur.dev
-- Résumé (PDF): https://abhithakur.dev/abhishek-thakur-resume.pdf
+- Résumé: https://abhithakur.dev/abhishek-thakur-resume.pdf
 - LinkedIn: https://www.linkedin.com/in/abhi-thakur-dev/
 - GitHub: https://github.com/abhithakur7
 - Email: hi@abhithakur.dev
 
+## Stack
+
+- Languages: TypeScript, JavaScript, SQL
+- Runtime / backend: Node.js, NestJS, Express, serverless (Cloud Functions)
+- Frontend: React, Next.js, Tailwind CSS
+- Data: PostgreSQL, MongoDB, Firebase / Firestore, Redis
+- Cloud: Google Cloud Platform, AWS (S3, RDS), Vercel, Firebase Hosting
+- Payments: Stripe (Connect, Checkout, webhooks, subscriptions)
+- AI: OpenAI API, prompt engineering, structured output, RAG pipelines
+- Tooling: Git, GitHub Actions, Docker, Playwright, Vitest
+
 ## Case studies
 
-- [Uplevelit](https://abhithakur.dev/work/uplevelit): Led engineering on an
-  Experience-as-a-Service marketplace — bookable 1:1s, group sessions,
-  livecourses, and Q&A. Stack: TypeScript, React, Firebase Functions / Hosting,
-  Stripe, Twilio Video, Bunny Stream, SendGrid.
-- [Penbook](https://abhithakur.dev/work/penbook): Solo-built an AI-powered
-  reading + writing platform as a modular NestJS monolith on MongoDB, with
-  OpenAI tooling across writing, reading, content, and book clubs.
-- [Rocket Rebates](https://abhithakur.dev/work/rocket-rebates): Solo-built
-  rebate discovery + AI report generation + admin-reviewed submission workflow.
-  NestJS, PostgreSQL on RDS, S3 with signed URLs, OpenAI jobs for reports and
-  document checklists.
+### Uplevelit — https://abhithakur.dev/work/uplevelit
+Led engineering on an Experience-as-a-Service marketplace at Bizdesire.
+Bookable 1:1s, group sessions, livecourses, and Q&A. Stack: TypeScript,
+React, Firebase Functions and Hosting, Stripe, Twilio Video, Bunny Stream,
+SendGrid.
 
-## Optional
+### Penbook — https://abhithakur.dev/work/penbook
+Solo-built an AI-powered reading and writing platform as a modular
+NestJS monolith on MongoDB, with OpenAI tooling across writing,
+reading, content, and book clubs.
 
-- [Résumé (PDF)](https://abhithakur.dev/abhishek-thakur-resume.pdf)
-- [Sitemap](https://abhithakur.dev/sitemap.xml)
+### Rocket Rebates — https://abhithakur.dev/work/rocket-rebates
+Solo-built rebate discovery plus AI report generation plus admin-reviewed
+submission workflow. NestJS, PostgreSQL on RDS, S3 with signed URLs,
+OpenAI jobs for reports and document checklists.
+
+## Frequently asked
+
+### Who is Abhishek Thakur (abhithakur.dev)?
+A senior full-stack engineer based in Chandigarh, India, focused on
+SaaS platforms and payment systems. He has led engineering on the
+Uplevelit marketplace at Bizdesire and solo-built Penbook and Rocket
+Rebates. He is not the Kaggle Grandmaster of the same name.
+
+### What does he work on?
+SaaS platforms, payment flows (Stripe Connect, subscriptions, webhooks),
+AI-assisted product features (OpenAI integrations, structured output,
+retrieval), and production Node / NestJS / React systems.
+
+### What is he looking for?
+Senior or staff full-stack roles, remote-first, timezone-flexible.
+Comfortable owning architecture, mentoring, and shipping end-to-end
+features in small teams.
+
+### How do I contact him?
+Email hi@abhithakur.dev or message on LinkedIn at
+https://www.linkedin.com/in/abhi-thakur-dev/
+
+### Where is he based?
+Chandigarh, India. Works remote, global timezones.
+
+## Links
+
+- Résumé (PDF): https://abhithakur.dev/abhishek-thakur-resume.pdf
+- Sitemap: https://abhithakur.dev/sitemap.xml
