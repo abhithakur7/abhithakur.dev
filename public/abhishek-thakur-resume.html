@@ -234,10 +234,12 @@
       a { color: var(--accent) !important; text-decoration: none !important; border-bottom: none !important; }
       .contact a { color: var(--accent) !important; }
 
-      /* Keep single entries atomic, but DO allow sections to flow across pages */
-      .entry, .proj { page-break-inside: avoid; break-inside: avoid; }
-      h3 { page-break-after: avoid; break-after: avoid; }
-      p, li { orphans: 3; widows: 3; }
+      /* Let tall experience entries flow across a page break; keep projects atomic */
+      .entry { page-break-inside: auto; break-inside: auto; }
+      .proj { page-break-inside: avoid; break-inside: avoid; }
+      /* Keep each heading glued to its first lines, and never split a single bullet */
+      .entry-head, h3 { page-break-after: avoid; break-after: avoid; }
+      .entry li, .proj li, p { page-break-inside: avoid; break-inside: avoid; orphans: 3; widows: 3; }
     }
   </style>
 </head>
