@@ -1,5 +1,13 @@
 export const EXPERIENCE = [
   {
+    company: 'Kinetichex',
+    url: 'http://kinetichex.com/',
+    role: 'Lead Software Engineer',
+    period: 'May 2026 – Present',
+    summary:
+      'Leading engineering across a portfolio of AI-driven full-stack web apps — legal tech, financial-ops automation, and manufacturing quotation tooling — alongside a 10+ site SEO / AEO and content program. Next.js, React, AI agents, Vercel.',
+  },
+  {
     company: 'Bizdesire',
     url: 'https://bizdesire.co/',
     role: 'Development Team Lead',

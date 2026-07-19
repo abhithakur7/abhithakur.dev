@@ -19,7 +19,7 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
               <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
             </span>
-            <span>Available now · Senior Full-Stack Engineer · Chandigarh, India</span>
+            <span>Open to opportunities · Senior Full-Stack Engineer · Chandigarh, India</span>
           </div>
 
           <HeroName />
@@ -27,8 +27,9 @@ export function Hero() {
           <p className="mt-9 max-w-xl text-balance text-lg leading-relaxed text-muted-foreground sm:text-xl">
             I build{' '}
             <span className="text-foreground">SaaS platforms</span> and{' '}
-            <span className="text-foreground">payment systems</span>. Most
-            recently led engineering at Bizdesire on Uplevelit. Open to new{' '}
+            <span className="text-foreground">payment systems</span>. Currently
+            Lead Software Engineer at Kinetichex; previously led engineering at
+            Bizdesire on Uplevelit. Open to new{' '}
             <span className="text-foreground">senior / staff</span> roles,
             remote, global.
           </p>
@@ -60,11 +61,11 @@ export function Hero() {
           <ul className="space-y-3">
             <li className="flex items-baseline justify-between gap-6">
               <span>Status</span>
-              <span className="text-foreground">Available now</span>
+              <span className="text-foreground">Open to offers</span>
             </li>
             <li className="flex items-baseline justify-between gap-6">
-              <span>Last role</span>
-              <span className="text-foreground">Lead · Bizdesire</span>
+              <span>Now</span>
+              <span className="text-foreground">Lead · Kinetichex</span>
             </li>
             <li className="flex items-baseline justify-between gap-6">
               <span>Years</span>

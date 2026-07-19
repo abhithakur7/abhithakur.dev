@@ -28,8 +28,19 @@ export const STACK_GROUPS: { label: string; items: string[] }[] = [
       'Claude Code',
       'Anthropic API',
       'OpenAI API',
+      'AI agents',
       'Prompt workflows',
       'AI-assisted development',
+    ],
+  },
+  {
+    label: 'seo/aeo',
+    items: [
+      'Technical SEO',
+      'AEO',
+      'Content strategy',
+      'Structured data',
+      'Lovable',
     ],
   },
   {

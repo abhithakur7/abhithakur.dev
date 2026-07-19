@@ -12,8 +12,9 @@
 - Also known as: Abhi Thakur, Abhi
 - Location: Chandigarh, India
 - Role: Senior Full-Stack Engineer
-- Focus: SaaS platforms, payment systems, AI-assisted workflows
-- Open to: Senior / staff roles, remote, global
+- Current: Lead Software Engineer at Kinetichex (May 2026 – present)
+- Focus: SaaS platforms, payment systems, AI-assisted workflows, technical SEO / AEO
+- Open to: Senior / staff roles, remote, global (currently employed, open to opportunities)
 - Site: https://abhithakur.dev
 - Résumé: https://abhithakur.dev/abhishek-thakur-resume.pdf
 - LinkedIn: https://www.linkedin.com/in/abhi-thakur-dev/
@@ -28,7 +29,8 @@
 - Data: PostgreSQL, MongoDB, Firebase / Firestore, Redis
 - Cloud: Google Cloud Platform, AWS (S3, RDS), Vercel, Firebase Hosting
 - Payments: Stripe (Connect, Checkout, webhooks, subscriptions)
-- AI: OpenAI API, prompt engineering, structured output, RAG pipelines
+- AI: OpenAI API, Anthropic API, AI agents, prompt engineering, structured output, RAG pipelines
+- SEO / AEO: technical SEO, answer-engine optimization, structured data, content strategy
 - Tooling: Git, GitHub Actions, Docker, Playwright, Vitest
 
 ## Case studies
@@ -60,7 +62,9 @@ Rebates. He is not the Kaggle Grandmaster of the same name.
 ### What does he work on?
 SaaS platforms, payment flows (Stripe Connect, subscriptions, webhooks),
 AI-assisted product features (OpenAI integrations, structured output,
-retrieval), and production Node / NestJS / React systems.
+retrieval), and production Node / NestJS / React systems. Currently Lead
+Software Engineer at Kinetichex, leading engineering across a portfolio of
+AI-driven web apps plus a technical SEO / AEO and content program.
 
 ### What is he looking for?
 Senior or staff full-stack roles, remote-first, timezone-flexible.
