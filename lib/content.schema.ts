@@ -14,6 +14,14 @@ export const workFrontmatter = z.object({
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, 'publishedAt must be ISO date (YYYY-MM-DD)')
     .optional(),
+  updatedAt: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'updatedAt must be ISO date (YYYY-MM-DD)')
+    .optional(),
+  /** Short questions and answers, rendered on the page and as FAQPage data. */
+  faq: z
+    .array(z.object({ q: z.string().min(1), a: z.string().min(1) }))
+    .optional(),
 });
 export type WorkFrontmatter = z.infer<typeof workFrontmatter>;
 

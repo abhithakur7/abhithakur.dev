@@ -2,11 +2,11 @@ import { DiagramFrame } from './diagram-frame';
 
 export function UplevelitDiagram() {
   return (
-    <DiagramFrame caption="Fig. 01 — Session pipeline across four formats">
+    <DiagramFrame caption="Session formats and integrations (conceptual)">
       <svg
         viewBox="0 0 720 360"
         role="img"
-        aria-label="Four session formats — 1:1, group, livecourse, Q&A — fan in to a shared Session abstraction. The Session drives Stripe payment, Twilio video, and Bunny recording, with payouts routed back through Stripe."
+        aria-label="Conceptual product map: individual sessions, groups, courses and Q&A connect to payment, video and recording services. Stripe also handles operator payouts."
         className="block w-full text-foreground"
         fill="none"
       >
@@ -92,7 +92,7 @@ export function UplevelitDiagram() {
           fillOpacity={0.55}
           fill="currentColor"
         >
-          shared abstraction
+          booking flow
         </text>
 
         {/* Three branches */}

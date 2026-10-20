@@ -1,44 +1,55 @@
 ---
-slug: uplevelit
-title: Uplevelit
-tagline: An Experience-as-a-Service marketplace — 1:1 sessions, group classes, livecourses, and direct Q&A with operators who earned the knowledge in the field.
-stack: [TypeScript, React, Firebase Functions, Firebase Hosting, Stripe, Twilio Video, SendGrid, Bunny Stream, Looker Studio]
-liveUrl: https://uplevelit.com
-role: Development Team Lead
-timeframe: 2025 – 2026
-order: 1
-summary: Led engineering on an Experience-as-a-Service marketplace — bookable 1:1s, group sessions, livecourses, Q&A, video, and creator payouts.
+slug: "uplevelit"
+title: "Uplevelit"
+tagline: "A marketplace where professionals sell what they learned on the job, as 1:1 calls, group classes, courses and Q&A."
+stack: ["TypeScript", "React", "Firebase Functions", "Firebase Hosting", "Stripe", "Twilio Video", "Bunny Stream", "SendGrid", "Looker Studio"]
+role: "Development Team Lead"
+timeframe: "2025 - 2026"
+order: 3
+summary: "Led the team building an experience marketplace at Bizdesire: four session formats on one booking model, in-app video, Stripe payments, refunds and operator payouts."
 publishedAt: "2026-04-13"
+updatedAt: "2026-10-20"
+faq:
+  - q: "What is Uplevelit?"
+    a: "A marketplace where working professionals sell their experience to people who need it, through 1:1 sessions, group classes, live courses and direct Q&A. Clients book and pay in the app, sessions run on in-app video, and operators are paid out through Stripe."
+  - q: "What was Abhishek Thakur's role on Uplevelit?"
+    a: "Development team lead at Bizdesire. He owned architecture and delivery with the team, reviewed code, and worked hands-on on the booking, payment, refund and payout paths."
+  - q: "What stack did Uplevelit use?"
+    a: "React on Firebase Hosting, Firebase Functions for the backend, Stripe for payments and payouts, Twilio Video for live sessions, Bunny Stream for recorded video, SendGrid for email and Looker Studio for reporting."
 ---
 
-## Overview
+## The job
 
-Uplevelit is **Experience as a Service**. Real professionals connect with real people who need exactly what they have — through 1:1 sessions, group classes, livecourses, and direct Q&A. People learn from operators who earned their knowledge in the field; operators share what only they know and help someone standing exactly where they once stood.
+Uplevelit sells experience. A professional who has done the job offers what they know to someone standing where they once stood, as a 1:1 call, a group class, a live course or a direct question and answer.
 
-I led the engineering team that built it at Bizdesire — a React front-end on Firebase Hosting backed by Firebase Functions, with Twilio Video for live sessions and Stripe for the money side.
+I led the engineering team that built it at Bizdesire. Alongside architecture, reviews and delivery, I worked hands-on on the parts the business runs on: booking, payments, refunds and operator payouts.
 
 <Diagram />
 
-## What I built
+## Four formats, one booking
 
-- **Multi-format sessions.** One product, four delivery surfaces — 1:1 calls, group classes, livecourses, and asynchronous Q&A — sharing the same booking, payment, and notification primitives so the team isn't rebuilding plumbing per format.
-- **Discovery and booking.** Browse operators, see what they offer, book a slot. The booking flow holds the slot, charges via Stripe, and provisions the session room — all transactional so a payment failure doesn't strand a half-booked slot.
-- **Live video on Twilio.** Sessions run inside the platform — no Zoom link to share, no external meeting to coordinate. Twilio handles the WebRTC stack; we own the surrounding UX.
-- **Stripe payments and creator payouts.** Clients pay for sessions; operators earn into balances and are paid out via Stripe. Webhook handlers, refunds, and idempotent transaction handling so retries and replays never double-charge or double-payout.
-- **Serverless backend on Firebase Functions.** Business logic lives behind HTTPS and event-triggered functions — no servers to provision, no autoscaling to babysit. Each function owns one job; orchestration is explicit.
-- **Video storage on Bunny Stream.** Recorded sessions, operator-uploaded intros, course videos. Transcoding, adaptive streaming, and CDN in one place — without stitching S3 + MediaConvert + CloudFront together.
-- **Email via SendGrid.** Booking confirmations, reminders, receipts, password flows — all the transactional touchpoints a marketplace needs.
-- **Analytics with Looker Studio.** Operator earnings, session conversion, content performance — wired to the underlying data so stakeholders self-serve their numbers instead of pinging the team.
+A 1:1 call, a group class, a live course and an asynchronous question look like four products. Underneath, each one needs the same things: something to buy, a time or a deadline, a payment, access for the right people, reminders, and money owed to an operator afterwards.
 
-## Key decisions
+We treated them as variants of one session model instead of four features. Booking, payment and notification code stayed singular, and a new format meant new rules on the session rather than another copy of the plumbing.
 
-- **Shared session abstraction across formats.** Treating 1:1, group, livecourse, and Q&A as variants of one *Session* object (not four separate features) keeps the booking, payment, and notification code paths singular — and means a new format ships in days, not weeks.
-- **Firebase Functions over a managed Node service.** Serverless removed an entire ops surface — no containers, no autoscaling config, no deploy pipeline for the backend tier beyond `firebase deploy`. Right call for a team that ships product, not infra.
-- **Twilio Video over a homemade WebRTC stack.** The product is about the *experience*, not the plumbing. Twilio handles TURN/STUN, recording, and quality — we spent our cycles on the UX around the call.
-- **Bunny Stream for video.** Purpose-built for video — transcoding, adaptive bitrate, and global CDN delivery in one product. Cheaper and simpler than the AWS triangle for our access patterns.
-- **Idempotency keys on every Stripe-touching function.** Functions can fire twice under webhook retries or client retries; idempotency keys make double-execution safe end-to-end.
-- **Looker Studio over a custom dashboard.** Stakeholders get charts without the team owning a BI tool — and dashboards stay current without dev cycles.
+## Where the money moves
 
-## Role
+A booking is not finished when the card is charged. The client needs access to the session, the operator needs the earnings recorded, and a cancellation has to reverse the right things.
 
-As team lead I owned architecture and delivery alongside hands-on development — especially the booking, payment, and payout code paths the product depends on.
+Stripe handled purchases, refunds and payouts to operators, with webhooks updating the application after each payment event. Webhooks and client retries can fire twice, so the functions that touch Stripe were written to be safe to run twice: a repeated event must never charge or pay out again.
+
+## Sessions inside the product
+
+Live sessions ran on Twilio Video inside the app, so neither side had to swap meeting links. Twilio handled the real-time media and the network traversal, and we spent our time on the experience around the call.
+
+Recorded sessions, course videos and operator intros went to Bunny Stream, which covers transcoding, adaptive streaming and delivery in one service. Live calls and stored video have different jobs, so they used different tools.
+
+## Running without servers to babysit
+
+The backend ran on Firebase Functions behind Firebase Hosting. For a team whose job was product, not infrastructure, that removed containers, scaling settings and a separate backend deploy. Each function owned one job, and the hand-offs between them were explicit.
+
+SendGrid sent the transactional email a marketplace lives on: booking confirmations, reminders, receipts and account flows. Looker Studio sat on top of the data, so the business could read operator earnings and session numbers without asking the team for a report.
+
+## Leading the team
+
+As lead, I worked with the client on scope and estimates, coordinated web and mobile delivery, reviewed code, mentored developers and ran technical interviews. I kept hands-on ownership of the booking, payment and payout paths.

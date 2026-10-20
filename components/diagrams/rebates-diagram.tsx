@@ -82,7 +82,7 @@ export function RebatesDiagram() {
   const bridgeY = 120;
 
   return (
-    <DiagramFrame caption="Fig. 03 — Search → AI report → admin gate → submit">
+    <DiagramFrame caption="Search, AI report, admin gate, submit">
       <svg
         viewBox="0 0 720 280"
         role="img"
