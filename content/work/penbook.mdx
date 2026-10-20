@@ -1,46 +1,47 @@
 ---
-slug: penbook
-title: Penbook
-tagline: An AI-powered platform that brings readers and writers together — write with AI tools, read in a connected universe, share, and join book clubs.
-stack: [Node.js, NestJS, MongoDB, OpenAI, React, WebSockets]
-liveUrl: https://penbook.net
-role: Solo Engineer
-timeframe: 2025 – 2026
-order: 2
-summary: Solo-built the NestJS + MongoDB platform powering AI-assisted writing, reading, content, and book-club surfaces in one creative space.
+slug: "penbook"
+title: "Penbook"
+tagline: "One platform for writing with AI tools, reading, sharing and book clubs, built solo."
+stack: ["Node.js", "NestJS", "MongoDB", "OpenAI", "React"]
+role: "Solo Engineer"
+timeframe: "2025 - 2026"
+order: 4
+summary: "Solo-built at Bizdesire: the NestJS and MongoDB backend, server-side OpenAI writing tools and the React flows for writing, reading, sharing and book clubs."
 publishedAt: "2026-04-13"
+updatedAt: "2026-10-20"
+faq:
+  - q: "What was Penbook?"
+    a: "An AI-assisted platform that put readers and writers in one place. Authors wrote with AI tools, readers discovered and read stories, everyone could publish posts about books, and clubs connected readers with each other and with authors."
+  - q: "Who built Penbook?"
+    a: "Abhishek Thakur built it solo at Bizdesire: the data model, the NestJS API, the OpenAI integration and the React front end."
+  - q: "Why did Penbook call OpenAI from the server instead of the browser?"
+    a: "Keeping the OpenAI client on the server kept the API key out of the browser, let prompts be changed and versioned without a front-end release, and allowed per-user usage limits that the client could not bypass."
 ---
 
-## Overview
+## The job
 
-Penbook is an **AI-powered all-in-one platform** that brings readers and writers together in one creative space. Four surfaces, one product:
+Penbook put four things that usually live on separate sites into one product: writing a story with AI help, reading other people's stories, publishing thoughts about books, and joining clubs to talk about them with other readers and with the authors.
 
-- **Writing** — create your own stories with AI-powered tools designed to support and inspire authors.
-- **Reading** — discover stories from the Penbook universe with features that make reading more engaging.
-- **Content** — share your thoughts about books, publish your own content, and get inspired by others.
-- **Book clubs** — connect with fellow readers, join or create clubs, and engage directly with authors.
-
-I built it solo at Bizdesire — NestJS over MongoDB on the backend, the OpenAI integration that powers the writing and content flows, and the front-end pieces that wire it all together.
+I built it solo at Bizdesire. That meant the data model, the NestJS API, the OpenAI integration and the React screens that use them.
 
 <Diagram />
 
-## What I built
+## One backend, four surfaces
 
-- **NestJS modular monolith.** One deployable, but each product surface is its own bounded module — `accounts`, `writing`, `reading`, `content`, `clubs`, `ai` — with explicit interfaces between them. Cross-module access goes through declared providers; modules can't reach into each other's internals. Solo work, but structured so any one of these could lift cleanly into its own service later without a rewrite.
-- **MongoDB-shaped data.** A book's natural unit of work is a document with nested structure (chapters, scenes, revisions). Mongo fit the shape natively — queryable in one round-trip instead of stitched together with joins, indexes tuned per module to the access patterns each one actually serves.
-- **Per-module query patterns.** Selective projections so the editor doesn't ship an entire manuscript when it only needs the current chapter; compound indexes scoped to each module's access patterns; aggregation pipelines for feed and club summaries instead of N+1 fetches in the API layer.
-- **OpenAI integration for the writing surface.** Powers AI-driven content creation and editing — prompt construction, request shaping, and response handling all live server-side so the client never sees a key. Designed so prompt iteration is a config change, not a redeploy of the front-end.
-- **Real-time collaboration primitives.** Live presence and concurrent editing for shared drafts so co-writers can work the same piece without clobbering each other's edits.
-- **Content + community APIs.** The endpoints behind shared posts, club membership, author engagement, and the discovery/feed paths that connect readers to writers.
+Writing, reading, content and clubs share accounts, data conventions and a deployment, but they change for different reasons. A new club feature should not be able to break the editor.
 
-## Key decisions
+NestJS modules gave each surface its own boundary inside one deployable. For one engineer, separate services would have been overhead with no payoff. A single unstructured app would have tangled within months. Modules kept the deploy simple and the seams honest.
 
-- **Modular monolith over either extreme.** Microservices would have been overkill for a one-engineer team; a free-for-all monolith would have rotted into tangled imports within months. NestJS modules with explicit boundaries gave me the deploy simplicity of a monolith and the seam discipline of services — and any one module can be extracted later without a rewrite.
-- **Mongo over a relational store.** A book's natural unit of work is a document with nested structure (chapters, scenes, revisions). Modelling that relationally would have meant constant joins or JSON-in-a-column. Mongo fit the access pattern natively.
-- **Server-side AI mediation.** The OpenAI client lives in the `ai` module, not in the browser — keys stay protected, prompts are versioned in code, and per-user usage can be capped without trusting the client.
-- **One backend, four surfaces, six modules.** Writing, reading, content, and clubs share the same auth, the same data conventions, and the same deployment — but each lives in its own module so a change in `clubs` can't accidentally break `writing`.
-- **Event-driven real-time channel per document.** Live edits propagate through a per-document gateway channel rather than a single global pipe — fanout stays bounded and presence stays cheap.
+## Data shaped like a book
 
-## Role
+A story is naturally a document with nested parts, and it is read and saved that way far more often than it is queried across. MongoDB fit that shape without a join for every page view. Indexes followed each surface's own access patterns: the editor loads the part being written, the reader loads what is published, and feeds and club pages read summaries.
 
-Solo engineer on the project — owned the data model, the API layer, the OpenAI integration, the real-time collaboration primitives, and the front-end work that consumes them.
+## AI that stays on the server
+
+The writing tools call OpenAI, and every call goes through the backend. The browser never holds a key. Prompts live in server code, so changing how the assistant behaves is a backend change rather than a front-end release, and usage can be capped per user without trusting the client.
+
+The AI is a tool inside the editor, not the product. Readers could discover, read and join clubs without ever touching it.
+
+## Reading and community
+
+The other half of the product was the API behind discovery and community: published stories, posts about books, club membership and the paths that connect a reader to the writer behind a story.

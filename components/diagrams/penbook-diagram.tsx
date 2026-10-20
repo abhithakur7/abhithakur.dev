@@ -2,11 +2,11 @@ import { DiagramFrame } from './diagram-frame';
 
 export function PenbookDiagram() {
   return (
-    <DiagramFrame caption="Fig. 02 — Modular monolith: four surfaces, isolated NestJS modules">
+    <DiagramFrame caption="Product areas and backend services (conceptual)">
       <svg
         viewBox="0 0 720 380"
         role="img"
-        aria-label="Four product surfaces — Writing, Reading, Content, and Book Clubs — fan into a NestJS modular monolith. Inside, six bounded modules: accounts, writing, reading, content, clubs, and AI. The monolith talks to MongoDB and OpenAI."
+        aria-label="Conceptual product map: writing, reading, content and book clubs use a NestJS backend with MongoDB and OpenAI. Labels describe responsibilities, not internal module names."
         className="block w-full text-foreground"
         fill="none"
       >
@@ -85,7 +85,7 @@ export function PenbookDiagram() {
           fillOpacity={0.7}
           fill="currentColor"
         >
-          NESTJS · MODULAR MONOLITH
+          NESTJS · BACKEND
         </text>
 
         {/* Internal modules — 6 boxes in a row */}

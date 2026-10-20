@@ -41,7 +41,7 @@ export function NavSections() {
               aria-current={isActive ? 'location' : undefined}
               className={`rounded-md px-3 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                 isActive
-                  ? 'text-foreground'
+                  ? 'bg-canary font-semibold text-[#1b1a21]'
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >

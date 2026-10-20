@@ -1,0 +1,73 @@
+---
+slug: "lawreach"
+title: "LawReach"
+tagline: "A compliance assistant for Australian small businesses, where marking something done has to mean it is done."
+stack: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "pgvector", "Deno", "Claude API", "Stripe"]
+role: "Full-stack Engineer"
+timeframe: "Apr - Sep 2026"
+order: 2
+summary: "A legal and compliance workspace for Australian small businesses: the obligations that apply to them, statutory deadlines, AI document analysis kept in-region, matters and evidence bundles."
+publishedAt: "2026-10-20"
+updatedAt: "2026-10-20"
+faq:
+  - q: "What is LawReach?"
+    a: "A legal and compliance workspace for Australian small businesses. It works out which obligations apply to a business from its structure, industry, staff and location, keeps a diary of deadlines, analyses uploaded contracts and documents with AI, and helps run legal matters through to an evidence bundle a solicitor can open."
+  - q: "How does LawReach keep document text in Australia?"
+    a: "Document chunks are embedded with Supabase's in-region gte-small model and stored in pgvector in the Sydney database, instead of sending text to a US-hosted embedding API. Retrieval is scoped to the signed-in user inside the database."
+  - q: "How are deadlines generated without guessing dates?"
+    a: "Deadlines the law fixes, such as income tax on 31 October or the annual wage review on 1 July, are computed and written to the diary. Deadlines only the business knows, such as an insurance renewal or a company review date, become a question instead. The answer becomes a deadline the user owns, so the product never invents a date."
+  - q: "What did Abhishek Thakur build on LawReach?"
+    a: "Abhishek worked across the application from April to September 2026: the document analysis pipeline, the obligations catalogue and deadlines, council lookup, matters and evidence bundles, Stripe billing and the database security around them."
+---
+
+## The job
+
+LawReach is a legal and compliance workspace for Australian small businesses. It answers three questions for an owner: what applies to me, when is it due, and what does this document I signed actually say.
+
+I worked across the application from April to September 2026. It is a Next.js app on Vercel with Supabase underneath: Postgres in Sydney with row-level security on every table, Deno edge functions for the AI work, and Stripe for subscriptions. Claude does the document analysis and the assistant.
+
+## Finished work that nobody could open
+
+Uploading a document starts its analysis from a database trigger. The edge function extracts the text, runs one Claude call, and saves a summary, risks and clauses. It then embeds the text for search, marks conflict checks stale, and sends an alert email.
+
+The status only flipped to `done` after all of that. If the email stalled or the function hit its time limit, the document sat on "processing" forever, with a complete analysis nobody could open. Nothing logged it, because the code that would have logged it never ran.
+
+I moved the status change to the moment the analysis is saved. The follow-up work now runs detached with `EdgeRuntime.waitUntil`, each task isolated from the others, so a failed email can no longer hide a finished analysis.
+
+## Search that stays in Sydney
+
+Users can ask questions about their own documents. The obvious embedding API is US-hosted, which would send Australian legal documents offshore. Instead, documents are chunked and embedded with Supabase's in-region `gte-small` model into pgvector, inside the same Sydney database.
+
+Retrieval runs through a database function that takes the user from the session rather than from the request, so one account can never search another's documents. Excerpts reach the model wrapped as reference material, never as instructions, and weak matches are dropped instead of padding the prompt.
+
+## Which obligations apply
+
+The core of the product is a catalogue of legal obligations, each with a rule for who it applies to. I grew it from 17 to 85 in phases. The first 44 needed only business structure, staff and industry. The rest needed profile questions the onboarding did not yet ask, so those came after the questions did.
+
+Two details mattered more than the count. Eight original obligations were replaced by better-sourced versions, and saved progress pointed at the old ids without a foreign key, so a migration had to carry it across or users would have found their ticks gone with nothing in the logs. And every source link was checked rather than assumed. Three candidate government URLs turned out to be wrong.
+
+## Deadlines without invented dates
+
+Fifteen obligations fall due rather than simply applying. Six have a date the law fixes, such as income tax on 31 October and the annual wage review on 1 July. Those are computed and written to the diary.
+
+The other nine recur on a date only the business knows: the company's registration anniversary, an insurance renewal, a council's own cycle. Generating a date for those would mean making one up, and an invented renewal date in someone's diary is exactly the failure the product exists to prevent. So those obligations ask a question instead, and the answer becomes a deadline the user owns. A partial unique index makes regeneration safe to repeat on every page load.
+
+## Knowing whose council you are in
+
+Food registration, signage and trading hours are set by local councils, so the product needs a council from a postcode. I loaded the Australian Bureau of Statistics postcode-to-council table. It picks the council covering most of a postcode, says so when another holds a real share, and returns nothing for unincorporated areas rather than naming a council someone might act on.
+
+The loader finds columns by name because the ABS renames them between editions. It refuses a truncated file and checks eight known postcodes after every import, because a partial import looks exactly like a successful one until someone in Cairns opens an empty council section.
+
+## Locking down what "done" means
+
+Matters move through steps, and a completed step is a legal record. A test against a database branch showed that some database functions treated a request with no signed-in user as our own server. Anonymous requests look the same. I locked those functions to the server role, required the server to prove it, and added tests that call every function as an anonymous user.
+
+The same review moved provider results and Stripe side effects behind server-only boundaries, made webhook effects idempotent and durable, and checked that a Stripe object belongs to the caller before any billing operation.
+
+## Evidence a solicitor can open
+
+A matter collects documents, deadlines, emails and steps. When it needs a solicitor, LawReach assembles an evidence bundle as one PDF. Tests build that bundle from a PDF produced by a real encoder, not only from synthetic files.
+
+## What I would do differently
+
+I would write the anonymous-caller tests before the first database function, not after. The branch test caught the hole within a minute of the migrations landing, which is the argument for running it from the start.

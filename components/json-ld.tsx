@@ -3,11 +3,15 @@ export function CaseStudyJsonLd({
   title,
   summary,
   publishedAt,
+  updatedAt,
+  faq,
 }: {
   slug: string;
   title: string;
   summary: string;
   publishedAt?: string;
+  updatedAt?: string;
+  faq?: { q: string; a: string }[];
 }) {
   const url = `https://abhithakur.dev/work/${slug}`;
   const data = {
@@ -20,6 +24,7 @@ export function CaseStudyJsonLd({
     image: `${url}/opengraph-image`,
     author: {
       '@type': 'Person',
+      '@id': 'https://abhithakur.dev/#person',
       name: 'Abhishek Thakur',
       url: 'https://abhithakur.dev',
     },
@@ -28,13 +33,45 @@ export function CaseStudyJsonLd({
       name: 'Abhishek Thakur',
       url: 'https://abhithakur.dev',
     },
-    ...(publishedAt && { datePublished: publishedAt, dateModified: publishedAt }),
+    ...(publishedAt && { datePublished: publishedAt }),
+    ...((updatedAt ?? publishedAt) && { dateModified: updatedAt ?? publishedAt }),
+  };
+  const faqData = faq?.length
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faq.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      }
+    : null;
+  const breadcrumbs = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Work', item: 'https://abhithakur.dev/#work' },
+      { '@type': 'ListItem', position: 2, name: title, item: url },
+    ],
   };
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
+      {faqData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }}
+        />
+      )}
+    </>
   );
 }
 
@@ -48,7 +85,7 @@ export function PersonJsonLd() {
     familyName: 'Thakur',
     alternateName: ['Abhi Thakur', 'Abhi', 'abhithakur', 'abhi-thakur-dev'],
     description:
-      'Senior full-stack engineer based in Chandigarh, India. Builds SaaS platforms and payment systems with Node.js, NestJS, React, TypeScript, Stripe, and GCP.',
+      'Senior full-stack engineer and Kinetichex lead based in Chandigarh, India. Builds booking flows, Stripe integrations, writing tools and rebate application workflows.',
     url: 'https://abhithakur.dev',
     mainEntityOfPage: 'https://abhithakur.dev',
     image: 'https://abhithakur.dev/opengraph-image',

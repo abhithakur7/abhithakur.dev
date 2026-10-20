@@ -1,84 +1,73 @@
 # Abhishek Thakur
 
-> Senior full-stack engineer based in Chandigarh, India, building SaaS
-> platforms and payment systems. Known professionally as Abhishek Thakur;
-> also goes by Abhi Thakur or Abhi. Not to be confused with the Kaggle
-> Grandmaster of the same name — this Abhishek Thakur is the
-> full-stack/SaaS engineer at abhithakur.dev.
+> Senior full-stack engineer in Chandigarh, India. Lead Software Engineer at
+> Kinetichex. Builds booking flows, payment integrations and AI-assisted tools.
+> This is the engineer at abhithakur.dev, not the Kaggle Grandmaster with the
+> same name.
 
 ## Identity
 
-- Name: Abhishek Thakur
 - Also known as: Abhi Thakur, Abhi
-- Location: Chandigarh, India
-- Role: Senior Full-Stack Engineer
-- Current: Lead Software Engineer at Kinetichex (May 2026 – present)
-- Focus: SaaS platforms, payment systems, AI-assisted workflows, technical SEO / AEO
-- Open to: Senior / staff roles, remote, global (currently employed, open to opportunities)
+- Current role: Lead Software Engineer, Kinetichex (May 2026 - present)
+- Previous role: Development Team Lead, Bizdesire (Feb 2024 - Apr 2026)
+- Open to: Remote senior / staff full-stack roles
 - Site: https://abhithakur.dev
 - Résumé: https://abhithakur.dev/abhishek-thakur-resume.pdf
 - LinkedIn: https://www.linkedin.com/in/abhi-thakur-dev/
 - GitHub: https://github.com/abhithakur7
 - Email: hi@abhithakur.dev
 
-## Stack
+## Work
 
-- Languages: TypeScript, JavaScript, SQL
-- Runtime / backend: Node.js, NestJS, Express, serverless (Cloud Functions)
-- Frontend: React, Next.js, Tailwind CSS
-- Data: PostgreSQL, MongoDB, Firebase / Firestore, Redis
-- Cloud: Google Cloud Platform, AWS (S3, RDS), Vercel, Firebase Hosting
-- Payments: Stripe (Connect, Checkout, webhooks, subscriptions)
-- AI: OpenAI API, Anthropic API, AI agents, prompt engineering, structured output, RAG pipelines
-- SEO / AEO: technical SEO, answer-engine optimization, structured data, content strategy
-- Tooling: Git, GitHub Actions, Docker, Playwright, Vitest
+At Kinetichex, he leads development on client products: the Sterling Forge
+casting portal, LawReach legal document analysis and a Shopify migration for
+Calmer Ceuticals. He also runs SEO, GEO and AEO for a client with hotel and
+legal-information sites in Belgium, and builds pages and features on two of
+the hotel sites.
+
+At Bizdesire, he led the Uplevelit team and built Penbook and Rocket Rebates solo.
+His responsibilities included client requirements, estimates, web and mobile
+coordination, code reviews and delivery.
+
+Earlier roles: Associate React & Node.js Developer at Appcore Labs
+(Oct 2022 - Dec 2023); Frontend Developer (React) at Fyntune Solutions
+(Oct 2021 - Sept 2022).
 
 ## Case studies
 
-### Uplevelit — https://abhithakur.dev/work/uplevelit
-Led engineering on an Experience-as-a-Service marketplace at Bizdesire.
-Bookable 1:1s, group sessions, livecourses, and Q&A. Stack: TypeScript,
-React, Firebase Functions and Hosting, Stripe, Twilio Video, Bunny Stream,
-SendGrid.
+- Sterling Forge: https://abhithakur.dev/work/sterling-forge
+  Customer portal for a jewellery casting house, built at Kinetichex with one
+  other engineer (Jul - Sep 2026). Instant quotes from uploaded CAD files at
+  the live metal spot price, a Python mesh analyser on Modal, Stripe deposits
+  and ACH with a nightly reconciliation job, and production stages that follow
+  the order type. Fixed a 4% volume error in OpenCASCADE's default integrator
+  that would have undercharged castings. Next.js, Postgres, Drizzle, Stripe.
+- LawReach: https://abhithakur.dev/work/lawreach
+  Legal and compliance workspace for Australian small businesses (Apr - Sep
+  2026). Obligations catalogue grown from 17 to 85, statutory deadlines that
+  never invent dates, postcode to council lookup, Claude document analysis
+  with retrieval kept in the Sydney region, evidence bundles. Next.js,
+  Supabase, pgvector, Stripe.
+- Uplevelit: https://abhithakur.dev/work/uplevelit
+  Experience marketplace at Bizdesire: 1:1 calls, group classes, live courses
+  and Q&A on one booking model, Twilio Video, Stripe payments, refunds and
+  operator payouts. Development team lead. React, Firebase Functions.
+- Penbook: https://abhithakur.dev/work/penbook
+  Writing, reading, posts and book clubs in one product, built solo at
+  Bizdesire. NestJS, MongoDB, React, server-side OpenAI writing tools.
+- Rocket Rebates: https://abhithakur.dev/work/rocket-rebates
+  Rebate search, OpenAI reports and document checklists, S3 storage and an
+  admin approval gate before filing, built solo at Bizdesire. NestJS,
+  PostgreSQL on AWS RDS, full-text search.
 
-### Penbook — https://abhithakur.dev/work/penbook
-Solo-built an AI-powered reading and writing platform as a modular
-NestJS monolith on MongoDB, with OpenAI tooling across writing,
-reading, content, and book clubs.
+## Stack
 
-### Rocket Rebates — https://abhithakur.dev/work/rocket-rebates
-Solo-built rebate discovery plus AI report generation plus admin-reviewed
-submission workflow. NestJS, PostgreSQL on RDS, S3 with signed URLs,
-OpenAI jobs for reports and document checklists.
+TypeScript, JavaScript, React, Next.js, Node.js, NestJS, PostgreSQL, MongoDB,
+Firebase, Stripe, OpenAI and Anthropic APIs. Recent Python work. Deployments
+and delivery tooling include Docker, GCP, AWS, Vercel, Cloudflare,
+GitHub Actions and Bitbucket Pipelines.
 
-## Frequently asked
+## Contact
 
-### Who is Abhishek Thakur (abhithakur.dev)?
-A senior full-stack engineer based in Chandigarh, India, focused on
-SaaS platforms and payment systems. He has led engineering on the
-Uplevelit marketplace at Bizdesire and solo-built Penbook and Rocket
-Rebates. He is not the Kaggle Grandmaster of the same name.
-
-### What does he work on?
-SaaS platforms, payment flows (Stripe Connect, subscriptions, webhooks),
-AI-assisted product features (OpenAI integrations, structured output,
-retrieval), and production Node / NestJS / React systems. Currently Lead
-Software Engineer at Kinetichex, leading engineering across a portfolio of
-AI-driven web apps plus a technical SEO / AEO and content program.
-
-### What is he looking for?
-Senior or staff full-stack roles, remote-first, timezone-flexible.
-Comfortable owning architecture, mentoring, and shipping end-to-end
-features in small teams.
-
-### How do I contact him?
-Email hi@abhithakur.dev or message on LinkedIn at
-https://www.linkedin.com/in/abhi-thakur-dev/
-
-### Where is he based?
-Chandigarh, India. Works remote, global timezones.
-
-## Links
-
-- Résumé (PDF): https://abhithakur.dev/abhishek-thakur-resume.pdf
-- Sitemap: https://abhithakur.dev/sitemap.xml
+For remote senior / staff roles, email hi@abhithakur.dev or use LinkedIn.
+Sitemap: https://abhithakur.dev/sitemap.xml

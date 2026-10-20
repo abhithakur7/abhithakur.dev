@@ -1,34 +1,27 @@
 import { getAllWork } from '@/lib/content';
 import { SectionHeader } from '@/components/section-header';
-import { WorkRow } from './work-row';
+import { DocketRail } from './docket-rail';
 
 export async function SelectedWork() {
   const work = await getAllWork();
   return (
-    <section id="work" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
-      <SectionHeader
-        index="01"
-        eyebrow="Selected work"
-        title={
-          <>
-            Things I&apos;ve <span className="italic">shipped</span>.
-          </>
+    <section id="work" className="py-20 sm:py-24 lg:py-0">
+      <DocketRail
+        items={work.map(({ slug, title, tagline, stack, role, timeframe }) => ({
+          slug,
+          title,
+          tagline,
+          stack,
+          role,
+          timeframe,
+        }))}
+        header={
+          <SectionHeader
+            title="Shipped work"
+            description="A casting portal, legal document tools, a marketplace, a writing platform and a rebate tool. What I built, and the bugs worth telling."
+          />
         }
-        description="Three case studies from the last few years — the products live, the stacks real, the trade-offs honest."
       />
-      <ol className="divide-y divide-border border-y border-border">
-        {work.map((w, i) => (
-          <li key={w.slug}>
-            <WorkRow
-              index={i}
-              slug={w.slug}
-              title={w.title}
-              tagline={w.tagline}
-              stack={w.stack}
-            />
-          </li>
-        ))}
-      </ol>
     </section>
   );
 }

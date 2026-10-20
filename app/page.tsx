@@ -1,10 +1,8 @@
 import { PersonJsonLd } from '@/components/json-ld';
-import { Splash } from '@/components/splash';
 import { Hero } from '@/components/hero/hero';
-import { Reveal } from '@/components/reveal';
 import { SelectedWork } from '@/components/sections/selected-work';
 import { WhatIDo } from '@/components/sections/what-i-do';
-import { StackTerminal } from '@/components/sections/stack-terminal';
+import { Stack } from '@/components/sections/stack';
 import { Experience } from '@/components/sections/experience';
 import { Contact } from '@/components/sections/contact';
 
@@ -12,23 +10,12 @@ export default function HomePage() {
   return (
     <>
       <PersonJsonLd />
-      <Splash />
       <Hero />
-      <Reveal>
-        <SelectedWork />
-      </Reveal>
-      <Reveal>
-        <WhatIDo />
-      </Reveal>
-      <Reveal>
-        <StackTerminal />
-      </Reveal>
-      <Reveal>
-        <Experience />
-      </Reveal>
-      <Reveal>
-        <Contact />
-      </Reveal>
+      <SelectedWork />
+      <WhatIDo />
+      <Stack />
+      <Experience />
+      <Contact />
     </>
   );
 }

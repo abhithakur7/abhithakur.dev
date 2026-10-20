@@ -1,0 +1,69 @@
+---
+slug: "sterling-forge"
+title: "Sterling Forge"
+tagline: "Upload a 3D model, get a price at today's metal spot, pay a deposit, and watch the piece move through the casting house."
+stack: ["Next.js", "TypeScript", "PostgreSQL", "Drizzle", "Stripe", "Python", "Modal", "OpenCASCADE"]
+role: "Full-stack Engineer"
+timeframe: "Jul - Sep 2026"
+order: 1
+summary: "A customer portal for a jewellery casting house: instant quotes from uploaded CAD files at live metal prices, Stripe deposits and ACH, and a production board that follows each order type."
+publishedAt: "2026-10-20"
+updatedAt: "2026-10-20"
+faq:
+  - q: "What is the Sterling Forge portal?"
+    a: "A customer portal for a jewellery casting house. Customers upload a 3D model, get an instant price at the live metal spot price, pay a deposit through Stripe and follow the piece through production. Staff run quotes, orders, invoices and the production board from the same app."
+  - q: "How does the portal price a casting?"
+    a: "A Python analyser measures the model's volume. The portal turns volume into metal weight using the alloy's density, prices the metal from a cached spot price plus a per-karat alloy cost, then adds labour, finishing and casting lines from rate cards stored in the database. The final invoice is re-priced from the finished weight at the spot price locked on the order."
+  - q: "Why does the mesh analyser run on Modal instead of Vercel?"
+    a: "The analyser depends on trimesh, scipy, rtree, embreex and OpenCASCADE. Together they do not fit in a Vercel Python function bundle, so the analyser runs on Modal and the portal calls it over HTTPS with a shared secret."
+  - q: "What happens if a Stripe webhook never arrives?"
+    a: "A nightly job asks Stripe directly about every payment still outstanding and settles it through the same idempotent function the webhook uses, so a missing event can no longer leave a paid deposit stuck as clearing."
+---
+
+## The job
+
+Sterling Forge casts jewellery for trade customers, designers and students. The brief: a customer uploads a model, sees a price at today's metal spot, pays a deposit, and follows the piece until it ships.
+
+I built the portal with one other engineer between July and September 2026. It is a single Next.js app on Vercel with 34 server routes, a Python mesh analyser on Modal, Postgres on Neon through Drizzle, files in Vercel Blob, Stripe for money and Resend for email.
+
+## Pricing a piece of metal from a file
+
+A casting is priced by weight, and weight comes from volume. The analyser reads the uploaded model, measures its volume, bounding box, wall thickness and open edges, and gives it a castability score. The portal multiplies volume by the alloy's density, prices the metal from the spot price, and adds labour, finishing and casting lines.
+
+Spot prices come from a metals API through a 60-second cache kept in the database, with a stale fallback so a slow upstream never blocks a quote. Rate cards, alloy premiums and thin-wall limits live in a `pricing_config` table, so the client changes a price without a deploy. The final invoice is re-priced from the finished weight at the spot price locked on the order.
+
+## A 4% error that only showed up on one file
+
+Jewellery CAD comes as STEP, IGES and 3DM as well as meshes, so the analyser reads those through OpenCASCADE. On one of the client's test files, the tessellated mesh came out heavier than the CAD kernel's own figure. That should not happen: a mesh cuts chords inside curves, so it reads light, never heavy.
+
+The kernel was the one that was wrong. OpenCASCADE's default volume calculation uses fixed-order Gauss quadrature, which is exact on planes and cylinders and unreliable on the B-spline surfaces jewellery is made of. On the worst file it read 4.2% light. A 6.4 g piece would have been quoted as 6.1 g, and the casting house would have absorbed the difference on every order.
+
+I switched to the adaptive integrator, which subdivides until it meets a relative tolerance. It costs about a second per file. To prove which figure was right, I checked against a 603,000-triangle tessellation, which never touches the kernel's integrator: it agreed with the adaptive volume to 0.004%.
+
+## Payments that settle without being told
+
+The first live ACH order showed that settlement depended entirely on a webhook. The test endpoint was subscribed to two checkout events and none of the events that actually move money afterwards. Nothing errors when an event never arrives. The deposit would have sat as "clearing" forever, with real money in Stripe.
+
+So the portal stopped depending on being told. A nightly job asks Stripe directly about every outstanding payment: deposits clearing, balance charges in flight, unpaid invoices. Settlement moved into one function shared by the webhook and the job. Both are idempotent against the same payment, so whichever arrives second credits nothing and sends no duplicate email.
+
+## Small bugs with large effects
+
+**An empty production board.** The rule "hide orders that are delivered and fully paid" was a raw SQL fragment passed to Drizzle's `not()`, which prepends `not` without parentheses. Operator precedence turned it into "not delivered, and fully paid", so the board showed only open orders that were already paid. With deposits outstanding everywhere, that was nothing. Two brackets brought eight orders back.
+
+**One pendant, three jobs.** The design request form told a customer "Something went wrong" three times, so he sent the same pendant three times. Every request had been saved; the alert email afterwards had failed and taken the response down with it. I made sure a notification can never fail the request it announces, and fixed the recipient list that caused the failure.
+
+**A cleanup job dying at 4 a.m.** An unqualified column name inside a correlated subquery broke the admin files page and the nightly retention sweep, so expired CAD files were never erased. Tests now pin the generated SQL, because this kind of fault is invisible to TypeScript.
+
+## Orders that are not all the same
+
+A wax model arrives ready to cast. A standalone print is never cast at all. CAD work is a design job before it is a casting job. One shared sequence of production stages fit none of them.
+
+I added `cad`, `wax` and `print` order kinds, each inheriting its kind from the quote. Stage validation, progress displays, the drag-and-drop board and the exports all follow that kind. Around it: finished-CAD handover with a fixed casting price, staff-sent invoices and monthly statements, trade accounts that can order on credit up to a limit, and a staff role that runs orders without seeing pricing.
+
+## Shipping it safely
+
+Migrations and the analyser deploy used to be manual, so a green build could sit on top of an unapplied migration. Now one pipeline typechecks, runs 341 portal tests and 31 analyser tests, applies migrations, deploys the portal, and redeploys the analyser only when its code changed. If any step cannot run, the deploy stops instead of passing quietly.
+
+## What I would do differently
+
+I would subscribe the live Stripe endpoint to every money-moving event on day one and add the reconciliation job before the first real payment, not after. The webhook was never the problem. Trusting it alone was.

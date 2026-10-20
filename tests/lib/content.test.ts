@@ -4,8 +4,11 @@ import { getAllWork, getWorkBySlug, getCapabilities } from '@/lib/content';
 describe('content loader', () => {
   it('loads all work entries ordered by `order`', async () => {
     const all = await getAllWork();
-    expect(all.length).toBe(3);
-    expect(all.map((w) => w.slug)).toEqual(['uplevelit', 'penbook', 'rocket-rebates']);
+    expect(all.length).toBe(5);
+    expect(all.map((w) => w.slug)).toEqual([
+      'sterling-forge', 'lawreach', 'uplevelit', 'penbook',
+      'rocket-rebates',
+    ]);
     for (const w of all) {
       expect(w.title).toBeTruthy();
       expect(w.stack.length).toBeGreaterThan(0);

@@ -1,54 +1,34 @@
 export const STACK_GROUPS: { label: string; items: string[] }[] = [
-  { label: 'languages', items: ['TypeScript', 'JavaScript'] },
+  { label: 'languages', items: ['TypeScript', 'JavaScript', 'Python'] },
   { label: 'frontend', items: ['React', 'Next.js', 'Redux', 'Tailwind CSS'] },
   { label: 'backend', items: ['Node.js', 'NestJS', 'Express'] },
-  { label: 'databases', items: ['PostgreSQL', 'MongoDB'] },
+  { label: 'data', items: ['PostgreSQL', 'MongoDB', 'Firebase', 'ETL'] },
   {
-    label: 'cloud/devops',
-    items: ['GCP', 'GCR', 'Docker', 'AWS RDS', 'Cloudflare', 'Vercel'],
+    label: 'cloud',
+    items: ['GCP', 'Docker', 'AWS RDS', 'AWS S3', 'Cloudflare', 'Vercel'],
   },
   {
-    label: 'ci/cd',
-    items: ['GitHub Actions', 'Bitbucket Pipelines', 'ETL pipelines'],
+    label: 'delivery',
+    items: ['GitHub Actions', 'Bitbucket Pipelines'],
   },
   {
     label: 'payments',
-    items: [
-      'Stripe API',
-      'Subscriptions',
-      'Payouts',
-      'Refunds',
-      'Webhooks',
-      'Idempotency',
-    ],
+    items: ['Stripe', 'Subscriptions', 'Payouts', 'Refunds', 'Webhooks'],
   },
   {
     label: 'ai',
-    items: [
-      'Claude Code',
-      'Anthropic API',
-      'OpenAI API',
-      'AI agents',
-      'Prompt workflows',
-      'AI-assisted development',
-    ],
+    items: ['OpenAI API', 'Anthropic API', 'Document processing', 'Report generation'],
   },
   {
-    label: 'seo/aeo',
-    items: [
-      'Technical SEO',
-      'AEO',
-      'Content strategy',
-      'Structured data',
-      'Lovable',
-    ],
+    label: 'search',
+    items: ['Technical SEO', 'GEO & AEO', 'Structured data', 'Content audits', 'Lovable'],
   },
   {
     label: 'integrations',
-    items: ['Twilio (SMS)', 'SendGrid (email)', 'Firebase Auth'],
+    items: ['Twilio Video', 'Bunny Stream', 'SendGrid', 'Firebase Auth', 'Shopify'],
   },
   {
     label: 'architecture',
-    items: ['Multi-tenant', 'RBAC', 'Microservices', 'REST APIs'],
+    items: ['Multi-tenant applications', 'Role-based access', 'REST APIs'],
   },
 ];

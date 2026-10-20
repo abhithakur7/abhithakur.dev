@@ -14,8 +14,7 @@ export default function NotFound() {
         <span className="italic">exist</span>.
       </h1>
       <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted-foreground">
-        The link is broken or the page has moved. Nothing here, but the rest of
-        the site is one click away.
+        There is no page at this address. Head back to the portfolio.
       </p>
       <div className="mt-10">
         <Link
