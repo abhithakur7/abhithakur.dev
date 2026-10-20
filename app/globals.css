@@ -4,26 +4,33 @@
 @theme {
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
-  --font-display: var(--font-display);
+  --font-display: var(--font-sans);
 
-  /* Warmer off-white & near-black, slight chroma for life */
-  --color-background: oklch(0.985 0.004 80);
-  --color-foreground: oklch(0.18 0.005 270);
-  --color-muted: oklch(0.935 0.008 80);
-  --color-muted-foreground: oklch(0.45 0.008 270);
-  --color-border: oklch(0.85 0.012 80);
-  --color-accent: oklch(0.55 0.19 28);
-  --color-accent-foreground: oklch(0.99 0 0);
+  /* Printed-order palette: thermal paper, ink, and the three copies of an
+     invoice book (white, canary, pink) written through carbon. */
+  --color-background: #f4f5f1;
+  --color-foreground: #1b1a21;
+  --color-muted: #e8e9e3;
+  --color-muted-foreground: #56585f;
+  --color-border: #c9cbc4;
+  --color-accent: #2e46d0;
+  --color-accent-foreground: #f4f5f1;
+  --color-canary: #f3dc5a;
+  --color-pink: #f1b5c4;
+  --color-sheet: #fbfbf8;
 }
 
 .dark {
-  --color-background: oklch(0.155 0.008 270);
-  --color-foreground: oklch(0.96 0.004 80);
-  --color-muted: oklch(0.215 0.008 270);
-  --color-muted-foreground: oklch(0.66 0.008 80);
-  --color-border: oklch(0.275 0.008 270);
-  --color-accent: oklch(0.74 0.16 28);
-  --color-accent-foreground: oklch(0.13 0 0);
+  --color-background: #121318;
+  --color-foreground: #ecede6;
+  --color-muted: #1c1d23;
+  --color-muted-foreground: #a2a4ab;
+  --color-border: #2c2e35;
+  --color-accent: #8ea0ff;
+  --color-accent-foreground: #121318;
+  --color-canary: #e2cb4e;
+  --color-pink: #e09aad;
+  --color-sheet: #1a1b21;
 }
 
 html {
@@ -31,11 +38,67 @@ html {
   scroll-padding-top: 4rem;
 }
 
-/* Make the variable axes work nicely on Fraunces */
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Display type: Archivo pushed wide. Width is part of the design, so it is
+   set here rather than left to the default 100. */
 .font-display {
-  font-family: var(--font-display), Georgia, serif;
-  font-optical-sizing: auto;
-  font-variation-settings: "SOFT" 50, "WONK" 0;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-variation-settings: "wdth" 118;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* Printed objects (receipt, dockets, stamps) use the mono at a narrower
+   width, like a thermal head. */
+.font-print {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variation-settings: "wdth" 88;
+}
+
+/* Perforated tear line used on receipts and dockets. */
+.perforation {
+  background-image: radial-gradient(circle, var(--color-background) 3px, transparent 3.5px);
+  background-size: 12px 8px;
+  background-position: center;
+  background-repeat: repeat-x;
+}
+
+/* Hero letters press in like ink hitting paper. */
+@keyframes ink-press {
+  from { opacity: 0; transform: translateY(0.18em) scaleY(0.2); }
+  60% { opacity: 1; transform: translateY(0) scaleY(1.08); }
+  to { opacity: 1; transform: none; }
+}
+.hero-letter {
+  transform-origin: 50% 100%;
+  animation: ink-press 520ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+body {
+  overflow-x: clip;
+}
+
+/* Split-flap cells: a hinge line across the middle, and a short fold each
+   time the glyph changes. Two keyframe names so toggling data-flip restarts it. */
+.flap-cell::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 1px;
+  background: rgb(0 0 0 / 0.55);
+}
+@keyframes flap-a { from { transform: perspective(200px) rotateX(-70deg); } to { transform: none; } }
+@keyframes flap-b { from { transform: perspective(200px) rotateX(-70deg); } to { transform: none; } }
+.flap-cell[data-flip="0"] { animation: flap-a 50ms linear; }
+.flap-cell[data-flip="1"] { animation: flap-b 50ms linear; }
+
+::selection {
+  background: var(--color-canary);
+  color: #1b1a21;
 }
 
 /* ----- Case study prose decoration -----
@@ -66,28 +129,27 @@ html {
 
 .cs-prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   color: var(--color-foreground);
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 500;
-  letter-spacing: -0.015em;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-variation-settings: "wdth" 112;
+  font-weight: 750;
+  letter-spacing: -0.02em;
   display: flex;
   align-items: baseline;
   gap: 0.6rem;
   scroll-margin-top: 6rem;
 }
 .cs-prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
-  content: "§";
-  color: var(--color-accent);
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.7em;
-  font-weight: 400;
-  letter-spacing: 0.1em;
+  content: "";
+  width: 0.55em;
+  height: 0.55em;
+  background: var(--color-canary);
   flex-shrink: 0;
-  transform: translateY(-0.05em);
+  transform: translateY(-0.05em) rotate(-4deg);
 }
 .cs-prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   color: var(--color-foreground);
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 500;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 700;
   letter-spacing: -0.01em;
   scroll-margin-top: 6rem;
 }

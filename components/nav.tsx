@@ -8,7 +8,7 @@ export function Nav() {
   const iconLink =
     'rounded-md p-2 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent';
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b-2 border-foreground bg-background/90 backdrop-blur">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-50 focus:rounded-md focus:bg-foreground focus:px-3 focus:py-1.5 focus:text-sm focus:text-background"
@@ -21,13 +21,13 @@ export function Nav() {
       >
         <Link
           href="/"
-          className="group inline-flex items-baseline gap-1 font-mono text-sm uppercase tracking-widest text-foreground"
+          data-fall
+          className="font-display rounded-sm text-sm uppercase tracking-normal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
-          <span aria-hidden className="text-accent">/</span>
-          <span className="font-medium">Abhishek Thakur</span>
+          Abhishek Thakur
         </Link>
         <NavSections />
-        <div className="flex items-center gap-2">
+        <div data-fall className="flex items-center gap-1">
           <a
             href="https://github.com/abhithakur7"
             aria-label="GitHub"

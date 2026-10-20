@@ -13,36 +13,36 @@ export default function OG() {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
+          justifyContent: 'space-between',
           padding: 80,
-          background:
-            'linear-gradient(135deg, #0a0a0a 0%, #1e1b4b 100%)',
-          color: 'white',
+          background: '#f4f5f1',
+          color: '#1b1a21',
           fontFamily: 'sans-serif',
         }}
       >
+        <div style={{ fontSize: 28, color: '#56585f' }}>
+          Senior full-stack engineer, Chandigarh
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ fontSize: 132, fontWeight: 800, lineHeight: 0.9, letterSpacing: -4, textTransform: 'uppercase' }}>
+            Abhishek
+          </div>
+          <div style={{ fontSize: 132, fontWeight: 800, lineHeight: 0.9, letterSpacing: -4, textTransform: 'uppercase' }}>
+            Thakur
+          </div>
+        </div>
         <div
           style={{
+            display: 'flex',
+            alignSelf: 'flex-start',
+            background: '#f3dc5a',
+            padding: '14px 22px',
             fontSize: 28,
-            color: '#a5b4fc',
-            letterSpacing: 2,
-            textTransform: 'uppercase',
+            fontFamily: 'monospace',
+            transform: 'rotate(-1.5deg)',
           }}
         >
-          Senior Full-Stack Engineer
-        </div>
-        <div style={{ fontSize: 88, fontWeight: 700, marginTop: 16 }}>
-          Abhishek Thakur
-        </div>
-        <div
-          style={{
-            fontSize: 32,
-            color: '#cbd5e1',
-            marginTop: 24,
-            maxWidth: 900,
-          }}
-        >
-          SaaS & payment systems — Node, NestJS, React, Stripe, GCP.
+          Booking flows, Stripe payouts and the APIs behind them
         </div>
       </div>
     ),

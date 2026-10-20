@@ -1,35 +1,31 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono, Fraunces } from 'next/font/google';
+import { Archivo, Martian_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Nav } from '@/components/nav';
 import { Footer } from '@/components/footer';
 
-const inter = Inter({
+const sans = Archivo({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
+  axes: ['wdth'],
 });
-const mono = JetBrains_Mono({
+const mono = Martian_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
   display: 'swap',
-});
-const display = Fraunces({
-  subsets: ['latin'],
-  variable: '--font-display',
-  display: 'swap',
-  axes: ['SOFT', 'WONK', 'opsz'],
+  axes: ['wdth'],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://abhithakur.dev'),
   title: {
-    default: 'Abhishek Thakur — Senior Full-Stack Engineer · Chandigarh, India',
-    template: '%s — Abhishek Thakur',
+    default: 'Abhishek Thakur | Senior Full-Stack Engineer, Chandigarh',
+    template: '%s | Abhishek Thakur',
   },
   description:
-    'Abhishek Thakur is a senior full-stack engineer based in Chandigarh, India, building SaaS platforms and payment systems with Node, NestJS, React, Stripe, and GCP. Open to senior / staff roles, remote.',
+    'Abhishek Thakur builds booking flows, Stripe integrations and AI writing tools. Senior full-stack engineer and Kinetichex lead, based in Chandigarh, India.',
   applicationName: 'Abhishek Thakur',
   authors: [{ name: 'Abhishek Thakur', url: 'https://abhithakur.dev' }],
   creator: 'Abhishek Thakur',
@@ -37,17 +33,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://abhithakur.dev',
-    title: 'Abhishek Thakur — Senior Full-Stack Engineer',
+    title: 'Abhishek Thakur | Senior Full-Stack Engineer',
     description:
-      'Senior full-stack engineer (SaaS & payments). Node, NestJS, React, Stripe, GCP. Based in Chandigarh, India.',
+      'Booking flows, Stripe payments and AI writing tools. Senior full-stack engineer at Kinetichex, based in Chandigarh, India.',
     siteName: 'Abhishek Thakur',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Abhishek Thakur — Senior Full-Stack Engineer',
+    title: 'Abhishek Thakur | Senior Full-Stack Engineer',
     description:
-      'Senior full-stack engineer (SaaS & payments). Node, NestJS, React, Stripe, GCP.',
+      'Booking flows, Stripe payments and AI writing tools. React, NestJS and TypeScript.',
   },
   robots: {
     index: true,
@@ -65,28 +61,19 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${mono.variable} ${display.variable}`}
+      className={`${sans.variable} ${mono.variable}`}
     >
       <head>
-        {/* Set the page background colour BEFORE stylesheets load so the
-            first paint matches the theme — eliminates the white-splash
-            flash before next-themes applies .dark. Also pre-decide whether
-            the intro splash should run, so already-seen visits and reduced
-            -motion users never see a flash of the overlay. */}
+        {/* Paint the paper colour before stylesheets load so there is no
+            white flash ahead of next-themes applying .dark. */}
         <style>{`
-          html { background-color: oklch(0.985 0.004 80); color-scheme: light dark; }
+          html { background-color: #F4F5F1; color-scheme: light dark; }
           @media (prefers-color-scheme: dark) {
-            html { background-color: oklch(0.155 0.008 270); }
+            html { background-color: #121318; }
           }
-          html.dark { background-color: oklch(0.155 0.008 270); }
-          html.splash-skip [data-splash] { display: none !important; }
+          html.dark { background-color: #121318; }
+          html.light { background-color: #F4F5F1; }
         `}</style>
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{if(sessionStorage.getItem('splash:seen')||matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('splash-skip')}}catch(e){}",
-          }}
-        />
       </head>
       <body className="min-h-dvh bg-background text-foreground antialiased">
         <ThemeProvider
