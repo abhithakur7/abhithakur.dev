@@ -5,7 +5,7 @@ export const EXPERIENCE = [
     role: 'Lead Software Engineer',
     period: 'May 2026 - Present',
     summary:
-      'Lead development on client products: production routing and invoices for the Sterling Forge casting portal, document analysis for LawReach and a Shopify migration for Calmer Ceuticals. I also run SEO, GEO and AEO for a client with hotel and legal-information sites in Belgium, from crawl and content audits to structured data, and build pages and features on two of the hotel sites.',
+      'Lead full-stack development across client apps for legal tech, accounts-receivable automation and manufacturing quoting. Built the Sterling Forge casting portal end to end, from a 3D model viewer and production board to Stripe payments and CI, and features across the LawReach compliance platform. AI features ship inside these apps, with enterprise sign-in through Microsoft Entra ID.',
   },
   {
     company: 'Bizdesire',
@@ -13,7 +13,7 @@ export const EXPERIENCE = [
     role: 'Development Team Lead',
     period: 'Feb 2024 - Apr 2026',
     summary:
-      'Led the Uplevelit team on bookings, live sessions and Stripe payouts. Built Penbook and Rocket Rebates solo. Worked with clients on scope and estimates, coordinated web and mobile delivery, and reviewed code.',
+      'Led a 5-engineer team building Uplevelit, with bookings, live video, idempotent Stripe billing and creator payouts. Built Penbook and Rocket Rebates solo. Ran client scoping, estimates, code review, mentoring and technical interviews.',
   },
   {
     company: 'Appcore Labs',

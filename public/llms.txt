@@ -19,13 +19,12 @@
 
 ## Work
 
-At Kinetichex, he leads development on client products: the Sterling Forge
-casting portal, LawReach legal document analysis and a Shopify migration for
-Calmer Ceuticals. He also runs SEO, GEO and AEO for a client with hotel and
-legal-information sites in Belgium, and builds pages and features on two of
-the hotel sites.
+At Kinetichex, he leads full-stack development on client products: the
+Sterling Forge casting portal, built end to end, and features across the
+LawReach compliance platform. AI features ship inside these apps.
 
-At Bizdesire, he led the Uplevelit team and built Penbook and Rocket Rebates solo.
+At Bizdesire, he led a 5-engineer team on Uplevelit and built Penbook and
+Rocket Rebates solo.
 His responsibilities included client requirements, estimates, web and mobile
 coordination, code reviews and delivery.
 

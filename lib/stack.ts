@@ -20,10 +20,6 @@ export const STACK_GROUPS: { label: string; items: string[] }[] = [
     items: ['OpenAI API', 'Anthropic API', 'Document processing', 'Report generation'],
   },
   {
-    label: 'search',
-    items: ['Technical SEO', 'GEO & AEO', 'Structured data', 'Content audits', 'Lovable'],
-  },
-  {
     label: 'integrations',
     items: ['Twilio Video', 'Bunny Stream', 'SendGrid', 'Firebase Auth', 'Shopify'],
   },
